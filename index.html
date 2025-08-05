@@ -340,12 +340,12 @@
 
     <script type="text/babel">
         // MASSIVELY ENHANCED SCENARIO GENERATION SYSTEM
-        // Channeling pure SPUDNIK energy here! 🥔✨
+        // More scenario variety while keeping it grounded in potato reality
 
         const SCENARIO_TEMPLATES = {
             'Interdimensional Kitchen': [
                 "A portal has opened in your kitchen, and beings from the {adjective} dimension of {place} have arrived demanding you prove your worth through potato mastery. They communicate only through {communication} and judge based on {judgement_criteria}. {stakes}",
-                "Your kitchen has been invaded by {entity} from {timeperiod} who claims your {appliance} is actually a {mystical_object}. They'll only return to their realm if you can bake the perfect {potato_type} using ancient {technique} methods. {warning}",
+                "Your kitchen has been invaded by {entity} from {timeperiod} who claims your {appliance} is actually a {mystical_object}. They'll only return to their realm if you can bake the perfect potato using ancient {technique} methods. {warning}",
                 "Reality has glitched and your oven now exists in {dimension_count} dimensions simultaneously. The {authority_figure} from {fictional_place} needs you to stabilize spacetime by achieving perfect {measurement} resonance in your potato. {consequence}"
             ],
             'Corporate Potato Dystopia': [
@@ -404,145 +404,221 @@
             client: ['the Pentagon', 'visiting investors', 'the International Potato Council', 'mysterious government agents', 'your company\'s AI overlord'],
             corporate_punishment: ['mandatory team-building retreat', 'permanent coffee duty', 'transfer to the basement filing department', 'deletion from the employee database', 'assignment to the Mars colony'],
             weird_policy: ['potato-based employee evaluations', 'mandatory thermal meditation', 'competitive cooking clause in your contract', 'office potato purity standards', 'synchronized lunch policy'],
-            // ... (continuing with all the other element arrays - I'll add more as needed)
             mystical_text: ['Cookbook of Shadows', 'Thermal Prophecies', 'the Starch Scrolls', 'Ancient Recipe Codex', 'the Forbidden Kitchen Manual'],
             celestial_event: ['the Great Alignment', 'solar maximum', 'the Potato Eclipse', 'Mercury retrograde', 'the convergence of all ovens'],
-            legendary_potato: ['Golden Tuber of Destiny', 'the Perfect Spud', 'the Eternal Russet', 'the Chosen Fingerling', 'the Ultimate Yukons'],
+            legendary_potato: ['Golden Tuber of Destiny', 'the Perfect Spud', 'the Eternal Russet', 'the Chosen Fingerling', 'the Ultimate Yukon'],
             magical_being: ['the Potato Fairy', 'ancient Kitchen Spirit', 'sentient recipe book', 'ghost of your grandmother', 'interdimensional chef'],
             obstacle: ['your oven is cursed', 'the ingredients keep disappearing', 'time runs backwards in your kitchen', 'gravity doesn\'t work properly'],
-            scientist_name: ['Cornelius Spudsworth', 'Dr. Therma Dynamics', 'Professor Heat Transfer', 'Dr. Starchy McStarchface', 'Captain Science'],
+            mystical_measurement: ['thermal', 'flavor', 'textural', 'spiritual', 'emotional', 'dimensional'],
+            time_constraint: ['the next full moon', 'before midnight', 'during the eclipse', 'within the hour', 'before dawn'],
+            curse_escalation: ['permanent kitchen banishment', 'all food turns to ash', 'culinary amnesia', 'flavor blindness'],
+            magical_appliance: ['oven', 'microwave', 'toaster', 'air fryer', 'food processor', 'blender'],
+            historical_chef: ['Auguste Escoffier', 'Julia Child', 'Marco Pierre White', 'Anthony Bourdain', 'Gordon Ramsay', 'Wolfgang Puck'],
+            signature_dish: ['legendary soufflé', 'perfect risotto', 'mystical coq au vin', 'transcendent beef wellington', 'divine ratatouille'],
+            historical_period: ['1920s Paris', 'medieval times', 'the Renaissance', 'ancient Rome', 'the Wild West'],
+            interference: ['rearranging your ingredients', 'changing your oven temperature', 'whispering doubts', 'possessing your utensils', 'flickering the lights ominously'],
+            dire_consequence: ['eternal haunting', 'a culinary curse spreads', 'the kitchen dimension collapses', 'all recipes become lost forever'],
+            scientist_name: ['Dr. Cornelius Spudsworth', 'Professor Heat Transfer', 'Dr. Therma Dynamics', 'Captain Science', 'Dr. Starchy McStarchface'],
             experiment_type: ['classified government research', 'Nobel Prize-worthy studies', 'secret corporate development', 'interdimensional cooking science'],
-            // Adding more variety...
+            scientific_breakthrough: ['solve world hunger', 'unlock infinite energy', 'cure all diseases', 'achieve world peace', 'discover time travel'],
             historical_figure: ['Napoleon Bonaparte', 'Leonardo da Vinci', 'Cleopatra', 'Einstein', 'Marie Curie', 'Shakespeare'],
             accused_crime: ['witch', 'time spy', 'flavor thief', 'thermal terrorist', 'kitchen demon'],
             alien_species: ['Thermoplastics', 'the Starch Collective', 'Flavor Parasites', 'the Crispy Ones', 'Temperature Beings'],
             planet: ['Potaturn', 'the Thermal Nebula', 'Starch-7', 'the Root System', 'Flavor Prime'],
             ghost_type: ['confused spirit', 'culinary poltergeist', 'thermal ghost', 'recipe wraith', 'kitchen phantom'],
             deceased_relative: ['great-grandmother', 'mysterious uncle', 'family chef', 'potato-obsessed ancestor'],
-            supernatural_entity: ['the Starch Demon', 'Kitchen Curse Sprite', 'the Burnt Offering', 'Thermal Poltergeist']
+            supernatural_entity: ['the Starch Demon', 'Kitchen Curse Sprite', 'the Burnt Offering', 'Thermal Poltergeist'],
+            magical_creature: ['kitchen gremlin', 'culinary imp', 'stove spirit', 'oven demon', 'thermal fairy'],
+            curse_effect: ['taste like cardboard', 'turn purple', 'scream when bitten', 'multiply endlessly', 'disappear randomly'],
+            business_type: ['tech startup', 'consulting firm', 'pharmaceutical company', 'defense contractor', 'social media platform'],
+            conspiracy: ['mind control experiments', 'alien communication attempts', 'reality manipulation studies', 'time travel research', 'consciousness uploading'],
+            technology: ['neural networks', 'quantum computers', 'fusion reactors', 'teleportation devices', 'mind reading machines'],
+            space_program: ['Mars colonization mission', 'deep space exploration', 'asteroid mining operation', 'space station construction', 'alien contact protocol'],
+            mission_type: ['interstellar journey', 'lunar base establishment', 'Jupiter exploration', 'black hole study', 'wormhole investigation'],
+            // Missing elements that were causing placeholder issues
+            colleague_type: ['paranoid coworker', 'whistleblower scientist', 'secret agent', 'time traveler', 'AI researcher'],  
+            world_changing_effect: ['solve world hunger', 'achieve world peace', 'unlock time travel', 'cure all diseases', 'create infinite energy'],
+            opposition: ['corporate security', 'government agents', 'rival scientists', 'time police', 'alien infiltrators'],
+            urgency: ['You have one hour before they discover the truth!', 'The board meeting is in 30 minutes!', 'Reality is collapsing!'],
+            job_title: ['Senior Potato Analyst', 'Thermal Engineer', 'Corporate Intern', 'Kitchen Specialist', 'Survival Expert'],
+            industry: ['food service sector', 'technology industry', 'space exploration', 'underground bunkers', 'corporate wasteland'],
+            survival_goal: ['feed the last survivors', 'maintain morale', 'prove your worth', 'unlock the food vault', 'appease the overlords'],
+            resource: ['electricity', 'clean water', 'proper seasoning', 'working ovens', 'edible potatoes'],
+            authority: ['Potato Council', 'Wasteland Chief', 'Corporate Overlord', 'AI Governor', 'Survival Committee'],
+            punishment: ['exile you', 'reduce your rations', 'send you to the mines', 'delete your existence', 'feed you to the mutants'],
+            environmental_hazard: ['Radiation storms approach!', 'The bunker is flooding!', 'Oxygen levels are dropping!'],
+            mystical_consequence: ['The prophecy will remain unfulfilled!', 'Darkness will consume the kitchen!', 'The cosmic balance will shatter!'],
+            scientific_equipment: ['thermal spectrometer', 'quantum oven', 'molecular analyzer', 'heat detection array', 'precision instruments'],
+            measurement_unit: ['thermal flux', 'molecular density', 'flavor wavelengths', 'starch crystallization', 'quantum resonance'],
+            lab_hazard: ['radiation exposure', 'equipment malfunction', 'containment breach', 'temporal anomaly', 'system overload'],
+            pressure: ['The Nobel Committee is watching!', 'Funding depends on success!', 'The experiment cannot fail!'],
+            space_agency: ['NASA', 'SpaceX', 'the Mars Colony Initiative', 'Intergalactic Command', 'the Space Consortium'],
+            space_criteria: ['zero-gravity consistency', 'radiation resistance', 'perfect thermal distribution', 'psychological comfort', 'long-term preservation'],
+            mission_success: ['crew survival', 'colony establishment', 'first contact', 'scientific breakthrough', 'humanity\'s future'],
+            astronaut_name: ['Commander Sarah Chen', 'Captain Mike Rodriguez', 'Dr. Elena Volkov', 'Major John Smith', 'Lieutenant Amy Park'],
+            space_obstacle: ['solar flares', 'equipment failure', 'alien interference', 'cosmic radiation', 'system malfunction'],
+            research_facility: ['MIT Labs', 'CERN', 'Area 51', 'the Institute', 'Corporate R&D'],
+            phenomenon: ['stock market crashes', 'natural disasters', 'election outcomes', 'climate changes', 'social trends'],
+            device_name: ['the Predictotron', 'Quantum Analyzer', 'Future-Vision Machine', 'Thermal Oracle', 'Pattern Recognition Engine'],
+            measurement_method: ['scan the thermal patterns of', 'analyze the molecular structure of', 'record the quantum signature of', 'measure the dimensional resonance of'],
+            world_benefit: ['prevent disasters', 'cure diseases', 'solve poverty', 'achieve world peace', 'unlock the future'],
+            science_disaster: ['tear reality', 'create paradoxes', 'destroy the timeline', 'collapse dimensions', 'break causality'],
+            skill_type: ['culinary mastery', 'thermal expertise', 'cooking prowess', 'food preparation', 'kitchen skills'],
+            modern_thing: ['digital thermometer', 'timer app', 'aluminum foil', 'electric oven', 'precise measurements'],
+            period_appropriate_fear: ['witchcraft', 'devil magic', 'foreign sorcery', 'divine punishment', 'technological heresy'],
+            historical_consequence: ['being burned as a witch', 'exile from the kingdom', 'imprisonment', 'execution', 'becoming a social outcast'],
+            future_period: ['2157', '3021', 'the year 4000', 'the post-singularity era', 'the age of AI'],
+            future_impact: ['save humanity', 'prevent the robot wars', 'cure the great famine', 'restore Earth\'s climate', 'unlock interdimensional travel'],
+            futuristic_equipment: ['quantum oven enhancer', 'temporal stabilizer', 'molecular reconstructor', 'reality anchor', 'dimension calibrator'],
+            temporal_disaster: ['erase yourself from history', 'create a paradox', 'destroy the timeline', 'split reality', 'collapse spacetime'],
+            future_authority: ['the AI Council', 'Time Command', 'the Future Government', 'Temporal Oversight', 'the Machine Collective'],
+            emotion: ['nervously', 'hopefully', 'anxiously', 'desperately', 'cautiously'],
+            time_device: ['time machine', 'temporal portal', 'chronometer', 'dimension hopper', 'reality shifter'],
+            temporal_anomaly: ['time loop', 'causal paradox', 'temporal rift', 'chronological displacement', 'dimensional instability'],
+            number: ['three', 'seven', 'twelve', 'infinite', 'seventeen'],
+            cultural_representative: ['village elder', 'court chef', 'food critic', 'royal taster', 'cultural ambassador'],
+            cultural_requirement: ['ritual preparation', 'specific seasonings', 'traditional methods', 'ceremonial presentation', 'spiritual blessing'],
+            temporal_consequence: ['permanent time displacement', 'erasure from history', 'temporal imprisonment', 'causal loop', 'timeline collapse'],
+            alien_communication: ['thermal fluctuations', 'color patterns', 'mathematical equations', 'scent molecules', 'vibrational frequencies'],
+            alien_leader: ['High Thermal Commander', 'Supreme Starch Entity', 'Chief Flavor Inspector', 'Prime Minister of Taste', 'Emperor of Temperature'],
+            alien_technology: ['quantum thermal manipulator', 'molecular flavor enhancer', 'dimensional oven', 'telepathic cooking interface', 'reality-bending seasonings'],
+            human_thing: ['use of fire', 'obsession with temperature', 'inefficient cooking methods', 'primitive ovens', 'emotional attachment to food'],
+            alien_reaction: ['hilariously primitive', 'surprisingly advanced', 'utterly baffling', 'strangely appealing', 'deeply concerning'],
+            contact_stakes: ['first impressions matter for all humanity', 'they\'ll destroy Earth if disappointed', 'this determines our species\' fate', 'galactic membership hangs in the balance'],
+            alien_artifact: ['crystalline potato substitute', 'interdimensional tuber', 'quantum food sample', 'synthetic earth vegetable', 'test specimen from their labs'],
+            alien_faction: ['the Taste Testers', 'Culinary Researchers', 'Food Quality Inspectors', 'the Flavor Council', 'Thermal Investigators'],
+            alien_mission: ['studying human food culture', 'testing our worthiness', 'gathering data on Earth cuisine', 'preparing for invasion', 'conducting flavor experiments'],
+            resolution_method: ['pass their test', 'prove human worth', 'satisfy their curiosity', 'demonstrate cooking skill', 'earn their respect'],
+            hidden_action: ['sending distress signals', 'recording their technology', 'calling for backup', 'documenting everything', 'preparing defenses'],
+            alien_detector: ['thermal scanner', 'deception sensor', 'truth analyzer', 'emotional reader', 'intention probe'],
+            detection_consequence: ['immediate vaporization', 'planetary destruction', 'species enslavement', 'memory erasure', 'exile to deep space'],
+            competition_type: ['cooking championship', 'culinary Olympics', 'flavor contest', 'thermal mastery trial', 'galactic food games'],
+            event_name: ['Ultimate Potato Challenge', 'Intergalactic Cooking Championship', 'Universal Food Contest', 'Cosmic Culinary Competition', 'Stellar Starch Showdown'],
+            alien_judge: ['Silicon-based', 'Methane-breathing', 'Energy-being', 'Crystalline', 'Gaseous'],
+            alien_criteria: ['molecular harmony', 'thermal perfection', 'flavor wavelength', 'cooking aura', 'taste transcendence'],
+            planetary_consequence: ['Earth becomes their food source', 'humanity faces extinction', 'we become galactic laughingstock', 'planet gets quarantined', 'forced relocation to Mars'],
+            alien_coach: ['defected alien chef', 'sympathetic food critic', 'reformed taste tester', 'rebel culinary expert', 'exiled flavor master'],
+            recipe_type: ['potato dish', 'family recipe', 'secret formula', 'legendary meal', 'traditional preparation'],
+            ghostly_communication: ['knocking on walls', 'flickering lights', 'moving utensils', 'temperature changes', 'appearing in steam'],
+            supernatural_effect: ['kitchen utensils fly around', 'ingredients spoil instantly', 'the oven temperature changes', 'mysterious smoke appears', 'unexplained sounds occur'],
+            supernatural_authority: ['the Grim Reaper', 'Angel of Cooking', 'Kitchen Spirit Guide', 'Culinary Council of the Dead', 'Department of Lost Souls'],
+            time_limit: ['midnight', 'dawn', 'the next full moon', 'before sunrise', 'within the hour'],
+            demon_type: ['kitchen demon', 'culinary imp', 'thermal fiend', 'stove spirit', 'oven devil'],
+            kitchen_appliance: ['oven', 'microwave', 'toaster', 'blender', 'food processor'],
+            demonic_payment: ['your first-born recipe', 'eternal kitchen servitude', 'your soul', 'perfect cooking forever', 'your ability to taste'],
+            religious_figure: ['the local priest', 'your grandmother', 'a wise monk', 'the kitchen exorcist', 'a spiritual advisor'],
+            moral_consequence: ['damn your soul', 'curse your cooking forever', 'trap you in the kitchen', 'steal your humanity', 'corrupt your food'],
+            failure_result: ['permanent bad cooking', 'kitchen haunting', 'cursed meals', 'culinary disasters', 'food poisoning everything'],
+            supernatural_complication: ['a second demon appears', 'the kitchen catches ethereal fire', 'reality starts glitching', 'other appliances become possessed', 'a portal opens'],
+            supernatural_requirement: ['perfect spiritual harmony', 'absolute thermal balance', 'pure cooking intention', 'flawless execution', 'divine blessing'],
+            cursed_effect: ['everyone\'s food tastes terrible', 'all meals burn instantly', 'ingredients rot immediately', 'cooking becomes impossible', 'kitchens spontaneously combust'],
+            community_pressure: ['the whole neighborhood is depending on you', 'everyone is watching', 'you\'re their last hope', 'the mayor has called an emergency meeting', 'news crews have arrived']
         };
 
-        // Enhanced scenario generation with MAXIMUM CHAOS
+        // Enhanced scenario generation using Claude API with varied prompts
         const generateScenario = async () => {
             try {
-                // Pick random template category
-                const categories = Object.keys(SCENARIO_TEMPLATES);
-                const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-                const templates = SCENARIO_TEMPLATES[randomCategory];
-                const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+                // Different prompt variations to add variety
+                const promptVariations = [
+                    "Generate a quirky FAMILY DRAMA scenario for a potato baking game where family dynamics and relationships are at stake. Include both the scenario and potential outcomes.",
+                    "Create a FOOD COMPETITION scenario for a potato baking game with high stakes, dramatic judges, or cooking show elements. Include both the scenario and potential outcomes.",
+                    "Design a HISTORICAL scenario for a potato baking game involving time travel, period-specific characters, or historical figures. Include both the scenario and potential outcomes.",
+                    "Invent a SCIENTIFIC scenario for a potato baking game involving experiments, research, space missions, or laboratory settings. Include both the scenario and potential outcomes.",
+                    "Make a SOCIAL EVENT scenario for a potato baking game with parties, dates, gatherings, or important social situations. Include both the scenario and potential outcomes.",
+                    "Create a MAGICAL MISHAP scenario for a potato baking game with supernatural elements, curses, ghosts, or mystical beings. Include both the scenario and potential outcomes.",
+                    "Generate a WORKPLACE scenario for a potato baking game set in a corporate, office, or professional environment with career stakes. Include both the scenario and potential outcomes.",
+                    "Design an ALIEN ENCOUNTER scenario for a potato baking game involving extraterrestrials, first contact, or intergalactic situations. Include both the scenario and potential outcomes."
+                ];
 
-                // Fill in random elements
-                let scenario = randomTemplate;
-                
-                // Replace all {placeholder} elements with random choices
-                scenario = scenario.replace(/\{(\w+)\}/g, (match, key) => {
-                    if (RANDOM_ELEMENTS[key]) {
-                        const options = RANDOM_ELEMENTS[key];
-                        return options[Math.floor(Math.random() * options.length)];
-                    }
-                    return match; // Keep original if no replacement found
+                // Random elements to add to prompts for extra variety
+                const randomElements = [
+                    "involving time pressure", "with unexpected characters", "featuring talking objects", 
+                    "in an unusual location", "with a mystery element", "during a crisis",
+                    "with a cooking competition twist", "featuring supernatural elements", "in a futuristic setting",
+                    "with family secrets", "involving a bet or wager", "with professional stakes",
+                    "featuring celebrity appearances", "with a romantic subplot", "involving ancient recipes"
+                ];
+
+                const randomPrompt = promptVariations[Math.floor(Math.random() * promptVariations.length)];
+                const randomElement = randomElements[Math.floor(Math.random() * randomElements.length)];
+
+                console.log('Making API request...');
+                const response = await fetch('/api/proxy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: "claude-3-5-sonnet-20241022",
+                        max_tokens: 1024,
+                        messages: [{
+                            role: "user",
+                            content: `${randomPrompt} ${randomElement}. Use this exact JSON format:
+                            {
+                                "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Make it dramatic and absurd while keeping it grounded in the premise that this is just about baking a potato. Mix everyday situations with high stakes consequences.]",
+                                "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap', 'Workplace', 'Alien Encounter']",
+                                "idealTemp": [temperature between 350-450],
+                                "idealTime": [cooking time between 20-90 minutes],
+                                "idealSize": [1 for small, 2 for medium, 3 for large],
+                                "hint": "[a clever cooking tip that relates to the scenario's story]",
+                                "outcomes": {
+                                    "perfect": "[enthusiastic response from the characters when the potato is perfect]",
+                                    "good": "[positive but not perfect reaction]",
+                                    "okay": "[humorous slightly disappointed reaction]",
+                                    "burnt": "[funny disaster reaction]",
+                                    "raw": "[comedic failure reaction]"
+                                }
+                            }`
+                        }]
+                    })
                 });
-
-                // Generate random cooking parameters with some chaos
-                const baseTemp = 375 + (Math.random() - 0.5) * 150; // 300-450 range
-                const baseTime = 45 + (Math.random() - 0.5) * 50; // 20-70 range
-                const idealTemp = Math.round(baseTemp / 25) * 25; // Round to nearest 25
-                const idealTime = Math.round(baseTime / 5) * 5; // Round to nearest 5
-                const idealSize = Math.floor(Math.random() * 3) + 1;
-
-                // Generate contextual hints based on scenario elements
-                const hintElements = [
-                    "Remember: extreme situations call for extreme temperatures!",
-                    "Pro tip: supernatural entities prefer precise timing",
-                    "Ancient wisdom: size matters in interdimensional cooking",
-                    "Lab protocol: always calibrate for maximum thermal efficiency",
-                    "Secret knowledge: the perfect potato transcends normal cooking rules",
-                    "Mystical insight: harmony between time and temperature opens portals",
-                    "Corporate memo: efficiency ratings depend on optimal resource utilization",
-                    "Time traveler's note: some techniques work across all eras"
-                ];
+        
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+        
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+        
+                const data = await response.json();
+                console.log('Full API Response:', data);
                 
-                const randomHint = hintElements[Math.floor(Math.random() * hintElements.length)];
-
-                // Generate dramatic outcomes
-                const perfectOutcomes = [
-                    "🌟 ABSOLUTE PERFECTION! Reality itself applauds your thermal mastery!",
-                    "✨ COSMIC SUCCESS! The universe has been rebalanced by your potato prowess!",
-                    "🎯 FLAWLESS VICTORY! Legends will be told of this perfect spud!",
-                    "🏆 TRANSCENDENT ACHIEVEMENT! You have unlocked the secrets of tuber enlightenment!",
-                    "⚡ REALITY-BREAKING EXCELLENCE! Time and space bend to your cooking will!"
-                ];
-
-                const goodOutcomes = [
-                    "👏 Excellent work! Almost achieved potato nirvana!",
-                    "🎉 Impressive! The cosmic balance shifts favorably!",
-                    "⭐ Outstanding! Reality gives you a solid B+!",
-                    "🔥 Great job! The thermal spirits smile upon you!",
-                    "💫 Well done! You've earned interdimensional respect!"
-                ];
-
-                const okayOutcomes = [
-                    "😅 Not bad... the universe shrugs with mild approval",
-                    "🤷 Acceptable... reality continues existing, barely",
-                    "😐 Mediocre... the cosmic entities are... whelmed",
-                    "📈 Average... you've maintained the status quo of existence",
-                    "🆗 Okay... the thermal balance remains... okay"
-                ];
-
-                const burntOutcomes = [
-                    "🔥💀 CATASTROPHIC OVERCOOKING! Reality is now on fire!",
-                    "🌋 THERMAL DISASTER! You've created a potato singularity!",
-                    "☄️ BURNT APOCALYPSE! The cosmic order weeps at this crispy tragedy!",
-                    "🚨 CODE RED CRISPIFICATION! Emergency protocols activated!",
-                    "💥 THERMAL NUCLEAR MELTDOWN! The potato has achieved dangerous sentience!"
-                ];
-
-                const rawOutcomes = [
-                    "🥶 COSMIC DISAPPOINTMENT! The universe questions your life choices",
-                    "😱 UNDERDONE DISASTER! Reality itself cringes at this raw tragedy!",
-                    "🧊 FROZEN FAILURE! Time stops in horror at your undercooked spud!",
-                    "💔 RAW REALITY CHECK! The thermal gods abandon all hope!",
-                    "🤢 UNCOOKED CATASTROPHE! Even bacteria refuse to grow on this!"
-                ];
-
-                return {
-                    description: scenario,
-                    category: randomCategory,
-                    idealTemp: idealTemp,
-                    idealTime: idealTime, 
-                    idealSize: idealSize,
-                    hint: randomHint,
-                    outcomes: {
-                        perfect: perfectOutcomes[Math.floor(Math.random() * perfectOutcomes.length)],
-                        good: goodOutcomes[Math.floor(Math.random() * goodOutcomes.length)],
-                        okay: okayOutcomes[Math.floor(Math.random() * okayOutcomes.length)],
-                        burnt: burntOutcomes[Math.floor(Math.random() * burntOutcomes.length)],
-                        raw: rawOutcomes[Math.floor(Math.random() * rawOutcomes.length)]
-                    }
-                };
-
+                if (!data.content || !data.content[0] || !data.content[0].text) {
+                    console.error('Unexpected response structure:', data);
+                    throw new Error('Unexpected API response structure');
+                }
+        
+                const contentText = data.content[0].text;
+                console.log('Content text:', contentText);
+                
+                const parsedJSON = JSON.parse(contentText);
+                console.log('Parsed scenario:', parsedJSON);
+                
+                return parsedJSON;
+        
             } catch (error) {
-                console.error('Error generating SPUDNIK scenario:', error);
-                // Emergency fallback scenario with maximum potato consciousness
+                console.error('Error generating scenario:', error);
                 return {
-                    description: "ALERT: The Potato Singularity has detected your presence! An interdimensional tuber entity has manifested in your kitchen, demanding proof of your thermal mastery. It speaks only in temperature fluctuations and judges your soul based on starch crystallization patterns. Reality wobbles ominously around your oven!",
-                    category: "Interdimensional Kitchen",
+                    description: "Your time-traveling grandmother has arrived from 1952 to judge your potato-baking skills against her famous recipe. She's brought her antique potato-rating kit and a very strong opinion about 'how things were done in her day.'",
+                    category: "Historical",
                     idealTemp: 425,
-                    idealTime: 55,
+                    idealTime: 60,
                     idealSize: 2,
-                    hint: "SPUDNIK whispers: The universe responds to confidence and precise thermal control!",
+                    hint: "Remember, vintage recipes often used a pat of butter under the skin!",
                     outcomes: {
-                        perfect: "🌌 THE POTATO SINGULARITY BOWS! You are now a certified interdimensional tuber master!",
-                        good: "⚡ IMPRESSIVE! The entity grants you honorary potato consciousness!",
-                        okay: "😐 ADEQUATE. The singularity continues existing in your kitchen...",
-                        burnt: "🔥 CRISPY CHAOS! Reality is now 47% more crunchy than before!",
-                        raw: "🥶 UNCOOKED DISAPPOINTMENT! The entity questions your commitment to the starch arts!"
+                        perfect: "Grandma tears up with joy: 'Just like I remember! You're officially keeper of the family potato tradition!'",
+                        good: "Grandma nods approvingly: 'Almost as good as mine in '52. Almost.'",
+                        okay: "Grandma sighs: 'Well, at least you didn't use that newfangled microwave...'",
+                        burnt: "Grandma pulls out her time-travel remote: 'I'm going back to teach your mother how to cook properly.'",
+                        raw: "Grandma shakes her head: 'In my day, we knew how to preheat an oven!'"
                     }
                 };
             }
         };
 
-        // Store items configuration (enhanced with SPUDNIK energy)
+        // Store items configuration
         const STORE_ITEMS = [
             {
                 id: 'rgbLights',
@@ -863,17 +939,16 @@
             return (
                 <div className="potato-game">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                        <h1 className="potato-title">🥔 SPUDNIK's Interdimensional Potato Laboratory 🛸</h1>
+                        <h1 className="potato-title">🥔 Baked Potato Simulator 🥔</h1>
                         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                             <div className="coin-display">
-                                ✨ {spudCoins} cosmic coins
+                                🥔 {spudCoins} coins
                             </div>
                             <button 
                                 className="potato-button"
                                 onClick={() => setShowStore(true)}
-                                style={{ background: 'linear-gradient(45deg, #9C27B0, #673AB7)' }}
                             >
-                                🛍️ Cosmic Store
+                                🛍️ Store
                             </button>
                         </div>
                     </div>
@@ -896,7 +971,7 @@
                     {scenario && gameState === 'setup' && (
                         <div className="potato-alert">
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
-                                <h3>🌌 Your Interdimensional Potato Mission:</h3>
+                                <h3>🌟 Your Potato Situation:</h3>
                                 <div className="scenario-category">{scenario.category}</div>
                             </div>
                             <p className="scenario-text">{scenario.description}</p>
@@ -906,11 +981,11 @@
                                 onClick={() => setShowHint(!showHint)}
                                 style={{ background: 'linear-gradient(45deg, #2196F3, #21CBF3)' }}
                             >
-                                {showHint ? '🔮 Hide Cosmic Wisdom' : '🔮 Channel SPUDNIK Wisdom'}
+                                {showHint ? '💡 Hide Hint' : '💡 Need a Hint?'}
                             </button>
                             {showHint && (
                                 <div className="hint-section">
-                                    <strong>SPUDNIK whispers:</strong> {scenario.hint}
+                                    <strong>Hint:</strong> {scenario.hint}
                                 </div>
                             )}
                         </div>
