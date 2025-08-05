@@ -327,15 +327,17 @@
         };
 
         // Scenario generation function
+        // Scenario generation function
         const generateScenario = async () => {
             try {
+                console.log('Making API request...');
                 const response = await fetch('/api/proxy', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        model: "claude-3-sonnet-20240229",
+                        model: "claude-3-5-sonnet-20241022",
                         max_tokens: 1024,
                         messages: [{
                             role: "user",
@@ -358,15 +360,33 @@
                         }]
                     })
                 });
-
+        
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+        
                 if (!response.ok) {
-                    throw new Error('API request failed');
+                    const errorText = await response.text();
+                    console.error('API Error Response:', errorText);
+                    throw new Error(`API request failed with status ${response.status}`);
                 }
-
+        
                 const data = await response.json();
+                console.log('Full API Response:', data);
+                
+                // Check if the response has the expected structure
+                if (!data.content || !data.content[0] || !data.content[0].text) {
+                    console.error('Unexpected response structure:', data);
+                    throw new Error('Unexpected API response structure');
+                }
+        
                 const contentText = data.content[0].text;
-                return JSON.parse(contentText);
-
+                console.log('Content text:', contentText);
+                
+                const parsedJSON = JSON.parse(contentText);
+                console.log('Parsed scenario:', parsedJSON);
+                
+                return parsedJSON;
+        
             } catch (error) {
                 console.error('Error generating scenario:', error);
                 return {
