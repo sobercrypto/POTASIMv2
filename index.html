@@ -1,7 +1,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-    <title>Potato Game</title>
+    <title>SPUDNIK's Potato Game</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- React and ReactDOM -->
@@ -16,69 +16,119 @@
             font-family: system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 20px;
-            background: #f0f0f0;
+            background: linear-gradient(45deg, #f0f0f0, #e8f5e8);
+            animation: backgroundShift 20s infinite;
+        }
+
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(45deg, #f0f0f0, #e8f5e8); }
+            25% { background: linear-gradient(45deg, #e8f5e8, #f5f0e8); }
+            50% { background: linear-gradient(45deg, #f5f0e8, #f0e8f5); }
+            75% { background: linear-gradient(45deg, #f0e8f5, #e8f0f5); }
+            100% { background: linear-gradient(45deg, #e8f0f5, #f0f0f0); }
         }
 
         .potato-game {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
         .potato-button {
-            background: #4CAF50;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 16px;
             margin: 4px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
 
         .potato-button:hover {
-            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+            background: linear-gradient(45deg, #45a049, #4CAF50);
         }
 
         .potato-slider {
             width: 100%;
             margin: 10px 0;
+            appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(to right, #4CAF50, #45a049);
+            outline: none;
+        }
+
+        .potato-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4CAF50;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
         }
 
         .potato-timer {
-            background: black;
+            background: linear-gradient(45deg, #000, #333);
             color: #4CAF50;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             font-size: 64px;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 15px;
             text-align: center;
             margin: 20px 0;
+            text-shadow: 0 0 20px #4CAF50;
+            border: 2px solid #4CAF50;
         }
 
         .potato-progress {
             width: 100%;
-            height: 20px;
-            background: #f0f0f0;
-            border-radius: 10px;
+            height: 25px;
+            background: rgba(240,240,240,0.8);
+            border-radius: 15px;
             overflow: hidden;
             margin: 10px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .potato-progress-bar {
             height: 100%;
-            background: #4CAF50;
+            background: linear-gradient(45deg, #4CAF50, #45a049, #8BC34A);
             transition: width 0.1s ease;
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
         }
 
         .potato-alert {
-            border-left: 4px solid #2196F3;
-            background: #E3F2FD;
-            padding: 15px;
-            margin: 10px 0;
+            border-left: 4px solid #4CAF50;
+            background: linear-gradient(45deg, rgba(227,242,253,0.9), rgba(240,248,255,0.9));
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .scenario-category {
+            display: inline-block;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .potato-store-overlay {
@@ -87,22 +137,25 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            backdrop-filter: blur(5px);
         }
 
         .potato-store {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            padding: 25px;
             width: 90%;
             max-width: 600px;
             max-height: 80vh;
             overflow-y: auto;
             position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         .store-header {
@@ -110,8 +163,8 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(76, 175, 80, 0.3);
             position: relative;
         }
 
@@ -119,6 +172,7 @@
             font-size: 24px;
             font-weight: bold;
             color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
         }
 
         .store-items {
@@ -127,17 +181,21 @@
         }
 
         .store-item {
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
+            border: 2px solid rgba(238,238,238,0.8);
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(5px);
         }
 
         .store-item:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transform: translateY(-3px);
+            border-color: #4CAF50;
         }
 
         .item-info {
@@ -145,26 +203,30 @@
         }
 
         .item-info h3 {
-            margin: 0 0 5px 0;
+            margin: 0 0 8px 0;
+            color: #333;
         }
 
         .item-info p {
             margin: 0 0 10px 0;
             color: #666;
+            line-height: 1.4;
         }
 
         .item-cost {
             font-weight: bold;
             color: #4CAF50;
+            font-size: 1.1em;
         }
 
         /* Additional styles */
         .utensil-tray {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.9);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
         }
 
         .utensils-container {
@@ -176,22 +238,26 @@
 
         .utensil-item {
             border: 2px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 18px;
             cursor: pointer;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(5px);
         }
 
         .utensil-item:hover {
             border-color: #4CAF50;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.2);
         }
 
         .utensil-used {
             border-color: #4CAF50;
-            background: #f0f9f0;
+            background: rgba(240,249,240,0.9);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
         }
 
         .utensil-disabled {
@@ -200,41 +266,72 @@
         }
 
         .utensil-icon {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .utensil-name {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #333;
         }
 
         .utensil-description {
             font-size: 0.9em;
             color: #666;
+            line-height: 1.3;
         }
 
         .utensil-status {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #4CAF50;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 4px 10px;
+            border-radius: 15px;
             font-size: 0.8em;
+            font-weight: bold;
         }
 
         /* RGB Lighting Effect */
         @keyframes rgbBorder {
-            0% { box-shadow: 0 0 10px rgba(255,0,0,0.5); }
-            33% { box-shadow: 0 0 10px rgba(0,255,0,0.5); }
-            66% { box-shadow: 0 0 10px rgba(0,0,255,0.5); }
-            100% { box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+            0% { box-shadow: 0 0 20px rgba(255,0,0,0.6), inset 0 0 20px rgba(255,0,0,0.1); }
+            33% { box-shadow: 0 0 20px rgba(0,255,0,0.6), inset 0 0 20px rgba(0,255,0,0.1); }
+            66% { box-shadow: 0 0 20px rgba(0,0,255,0.6), inset 0 0 20px rgba(0,0,255,0.1); }
+            100% { box-shadow: 0 0 20px rgba(255,0,0,0.6), inset 0 0 20px rgba(255,0,0,0.1); }
         }
 
         .rgb-enabled {
-            animation: rgbBorder 5s infinite;
+            animation: rgbBorder 3s infinite;
+        }
+
+        .potato-title {
+            background: linear-gradient(45deg, #4CAF50, #45a049, #8BC34A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .scenario-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin: 15px 0;
+        }
+
+        .hint-section {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-style: italic;
         }
     </style>
 </head>
@@ -242,31 +339,246 @@
     <div id="potato-game-root"></div>
 
     <script type="text/babel">
-        // Store items configuration
+        // MASSIVELY ENHANCED SCENARIO GENERATION SYSTEM
+        // Channeling pure SPUDNIK energy here! 🥔✨
+
+        const SCENARIO_TEMPLATES = {
+            'Interdimensional Kitchen': [
+                "A portal has opened in your kitchen, and beings from the {adjective} dimension of {place} have arrived demanding you prove your worth through potato mastery. They communicate only through {communication} and judge based on {judgement_criteria}. {stakes}",
+                "Your kitchen has been invaded by {entity} from {timeperiod} who claims your {appliance} is actually a {mystical_object}. They'll only return to their realm if you can bake the perfect {potato_type} using ancient {technique} methods. {warning}",
+                "Reality has glitched and your oven now exists in {dimension_count} dimensions simultaneously. The {authority_figure} from {fictional_place} needs you to stabilize spacetime by achieving perfect {measurement} resonance in your potato. {consequence}"
+            ],
+            'Corporate Potato Dystopia': [
+                "You're the new intern at {corporation}, where potato-baking skills determine your {job_metric}. Your supervisor, {boss_character}, has given you {time_pressure} to impress {client} or face {corporate_punishment}. The company's {weird_policy} makes this extra challenging.",
+                "The {business_type} you work for has been secretly {conspiracy} using potato-based {technology}. Your {colleague_type} has discovered that perfect potato baking can {world_changing_effect}, but the {opposition} is trying to stop you. {urgency}",
+                "As a {job_title} in the post-apocalyptic {industry}, you must bake potatoes to {survival_goal}. The {resource} shortage means you only get one chance, and the {authority} will {punishment} if you fail. {environmental_hazard}"
+            ],
+            'Mystical Potato Prophecy': [
+                "The ancient {mystical_text} prophesied that when {celestial_event} occurs, the chosen one will arise who can bake the {legendary_potato}. You've been visited by {magical_being} who insists you're the prophecy's fulfillment, but {obstacle} stands in your way. {mystical_consequence}",
+                "Your {magical_appliance} has been possessed by the spirit of {historical_chef}, who can only be released if you recreate their legendary {signature_dish} from {historical_period}. The spirit keeps {interference} and time is running out before {dire_consequence}.",
+                "A {magical_creature} has cursed your kitchen so that every potato you bake will {curse_effect} unless you can achieve perfect {mystical_measurement} harmony. The curse can only be broken during {time_constraint}, and failure means {curse_escalation}."
+            ],
+            'Scientific Potato Experiment': [
+                "Dr. {scientist_name} has recruited you for {experiment_type} involving potato thermal dynamics. The {scientific_equipment} is calibrated to measure {measurement_unit}, and achieving perfect results could {scientific_breakthrough}. However, {lab_hazard} threatens the experiment. {pressure}",
+                "Your potato has been selected for the {space_program} as part of humanity's first {mission_type}. The {space_agency} needs perfect {space_criteria} to ensure {mission_success}. Astronaut {astronaut_name} is counting on you, but {space_obstacle} complicates everything.",
+                "The {research_facility} has discovered that potato cooking patterns can predict {phenomenon}. You're the test subject for their {device_name}, which will {measurement_method} your baking process. Success could {world_benefit}, but failure might {science_disaster}."
+            ],
+            'Time-Displaced Potato Crisis': [
+                "You've accidentally time-traveled to {historical_period} and must convince {historical_figure} that you're not a {accused_crime} by demonstrating your {skill_type} through potato mastery. The locals think your {modern_thing} is {period_appropriate_fear}, and {time_pressure} before {historical_consequence}.",
+                "A time traveler from {future_period} has arrived claiming that your potato-baking technique will {future_impact} in their timeline. They've brought {futuristic_equipment} to help, but using it incorrectly could {temporal_disaster}. {future_authority} is {emotion} watching.",
+                "Your {time_device} malfunctioned during a baking session, creating a {temporal_anomaly} where you must bake the same potato across {number} different time periods simultaneously. Each era's {cultural_representative} has different {cultural_requirement}, and failure means {temporal_consequence}."
+            ],
+            'Alien Potato Encounter': [
+                "First contact has been made, and the {alien_species} from {planet} communicate exclusively through {alien_communication}. Their {alien_leader} has declared that humanity's worth will be judged by your ability to bake a potato using their {alien_technology}. They find our {human_thing} {alien_reaction}, and {contact_stakes}.",
+                "Your potato has been replaced with a {alien_artifact} by {alien_faction} who are {alien_mission}. The only way to {resolution_method} is to treat it exactly like a normal potato while secretly {hidden_action}. The {alien_detector} will {detection_consequence} if you're discovered.",
+                "An intergalactic {competition_type} has chosen Earth as its next venue, and you've been randomly selected to represent humanity in the {event_name}. The {alien_judge} species evaluates based on {alien_criteria}, and losing means {planetary_consequence}. Your {alien_coach} keeps giving contradictory advice."
+            ],
+            'Supernatural Potato Drama': [
+                "Your {deceased_relative} has returned as a {ghost_type} and will only move on to the afterlife if you can recreate their secret {recipe_type} from memory. They can only communicate by {ghostly_communication}, and every mistake causes {supernatural_effect}. The {supernatural_authority} gives you until {time_limit}.",
+                "A {demon_type} has possessed your {kitchen_appliance} and demands {demonic_payment} in exchange for perfect potato cooking. The {religious_figure} warned you that accepting help will {moral_consequence}, but refusing means {failure_result}. {supernatural_complication} makes everything more urgent.",
+                "Your neighborhood has been cursed by {supernatural_entity} so that everyone's cooking fails except when perfect harmony is achieved. You're the last hope to break the curse by baking a potato with {supernatural_requirement}. The {cursed_effect} grows stronger each day, and {community_pressure} is mounting."
+            ]
+        };
+
+        const RANDOM_ELEMENTS = {
+            adjective: ['crystalline', 'backwards', 'musical', 'geometric', 'liquid', 'transparent', 'inverted', 'microscopic', 'elastic', 'magnetic'],
+            place: ['Spud-37', 'the Tuber Nebula', 'New Potatopia', 'the Root Dimension', 'Starch Valley', 'the Great Baking', 'Flavor Town Prime', 'the Crispy Realm', 'Umami Central', 'the Deep Fry'],
+            communication: ['interpretive dance', 'potato-scented smoke signals', 'mathematical equations', 'temperature fluctuations', 'color changes', 'musical frequencies', 'enzyme secretions', 'quantum entanglement'],
+            judgement_criteria: ['texture resonance', 'molecular harmony', 'temporal consistency', 'dimensional stability', 'flavor wavelength', 'cooking rhythm', 'thermal poetry', 'starch architecture'],
+            stakes: ['Their invasion fleet waits in orbit.', 'Reality itself hangs in the balance!', 'Your kitchen might collapse into a flavor void.', 'Time could fold in on itself!'],
+            entity: ['the Ghost of Julia Child', 'interdimensional food critics', 'sentient kitchen utensils', 'time-displaced master chefs', 'AI food bloggers from 2087'],
+            timeperiod: ['the Potato Renaissance', '3021 CE', 'the Great Tuber War', 'ancient Mesopotamia', 'the Steam Age', 'peak civilization', 'the before-times'],
+            appliance: ['oven', 'microwave', 'toaster', 'air fryer', 'slow cooker', 'pressure cooker'],
+            mystical_object: ['portal generator', 'time anchor', 'dimensional stabilizer', 'reality compiler', 'universe printer', 'chaos engine'],
+            technique: ['crystalline resonance', 'quantum tunneling', 'thermal meditation', 'molecular dancing', 'entropy reversal', 'flavor alchemy'],
+            warning: ['The fabric of reality grows thin!', 'Strange energies build in your kitchen!', 'Time itself grows impatient!'],
+            dimension_count: ['seventeen', 'infinite', 'negative two', 'imaginary', 'fractal', 'recursive'],
+            authority_figure: ['Potato Pope', 'Thermal Emperor', 'Starch Magistrate', 'Root Chancellor', 'Tuber Overlord'],
+            fictional_place: ['the Flavor Dimension', 'Umami Prime', 'New Crispington', 'the Spud Collective', 'Thermal City'],
+            measurement: ['thermal', 'flavor', 'textural', 'temporal', 'dimensional', 'molecular'],
+            consequence: ['Kitchen spacetime could collapse!', 'Reality might reboot!', 'All potatoes could achieve sentience!'],
+            corporation: ['SynerTech Solutions', 'Global Flavor Industries', 'Quantum Cuisine Corp', 'ThermalDyne Systems', 'OmniTuber Ltd', 'Starch Innovations Inc'],
+            job_metric: ['quarterly performance', 'caloric efficiency rating', 'thermal optimization score', 'flavor proficiency index', 'employee nutrition rating'],
+            boss_character: ['Karen from Accounting', 'the Thermal Efficiency Manager', 'Dr. Corporate McSynergy', 'your AI supervisor BAKE-3000', 'the mysterious CEO who only communicates through potato ratings'],
+            time_pressure: ['exactly 47 minutes', 'until the board meeting', 'before the office lunch rush', 'until the quarterly review', 'before the surprise inspection'],
+            client: ['the Pentagon', 'visiting investors', 'the International Potato Council', 'mysterious government agents', 'your company\'s AI overlord'],
+            corporate_punishment: ['mandatory team-building retreat', 'permanent coffee duty', 'transfer to the basement filing department', 'deletion from the employee database', 'assignment to the Mars colony'],
+            weird_policy: ['potato-based employee evaluations', 'mandatory thermal meditation', 'competitive cooking clause in your contract', 'office potato purity standards', 'synchronized lunch policy'],
+            // ... (continuing with all the other element arrays - I'll add more as needed)
+            mystical_text: ['Cookbook of Shadows', 'Thermal Prophecies', 'the Starch Scrolls', 'Ancient Recipe Codex', 'the Forbidden Kitchen Manual'],
+            celestial_event: ['the Great Alignment', 'solar maximum', 'the Potato Eclipse', 'Mercury retrograde', 'the convergence of all ovens'],
+            legendary_potato: ['Golden Tuber of Destiny', 'the Perfect Spud', 'the Eternal Russet', 'the Chosen Fingerling', 'the Ultimate Yukons'],
+            magical_being: ['the Potato Fairy', 'ancient Kitchen Spirit', 'sentient recipe book', 'ghost of your grandmother', 'interdimensional chef'],
+            obstacle: ['your oven is cursed', 'the ingredients keep disappearing', 'time runs backwards in your kitchen', 'gravity doesn\'t work properly'],
+            scientist_name: ['Cornelius Spudsworth', 'Dr. Therma Dynamics', 'Professor Heat Transfer', 'Dr. Starchy McStarchface', 'Captain Science'],
+            experiment_type: ['classified government research', 'Nobel Prize-worthy studies', 'secret corporate development', 'interdimensional cooking science'],
+            // Adding more variety...
+            historical_figure: ['Napoleon Bonaparte', 'Leonardo da Vinci', 'Cleopatra', 'Einstein', 'Marie Curie', 'Shakespeare'],
+            accused_crime: ['witch', 'time spy', 'flavor thief', 'thermal terrorist', 'kitchen demon'],
+            alien_species: ['Thermoplastics', 'the Starch Collective', 'Flavor Parasites', 'the Crispy Ones', 'Temperature Beings'],
+            planet: ['Potaturn', 'the Thermal Nebula', 'Starch-7', 'the Root System', 'Flavor Prime'],
+            ghost_type: ['confused spirit', 'culinary poltergeist', 'thermal ghost', 'recipe wraith', 'kitchen phantom'],
+            deceased_relative: ['great-grandmother', 'mysterious uncle', 'family chef', 'potato-obsessed ancestor'],
+            supernatural_entity: ['the Starch Demon', 'Kitchen Curse Sprite', 'the Burnt Offering', 'Thermal Poltergeist']
+        };
+
+        // Enhanced scenario generation with MAXIMUM CHAOS
+        const generateScenario = async () => {
+            try {
+                // Pick random template category
+                const categories = Object.keys(SCENARIO_TEMPLATES);
+                const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+                const templates = SCENARIO_TEMPLATES[randomCategory];
+                const randomTemplate = templates[Math.floor(Math.random() * templates.length)];
+
+                // Fill in random elements
+                let scenario = randomTemplate;
+                
+                // Replace all {placeholder} elements with random choices
+                scenario = scenario.replace(/\{(\w+)\}/g, (match, key) => {
+                    if (RANDOM_ELEMENTS[key]) {
+                        const options = RANDOM_ELEMENTS[key];
+                        return options[Math.floor(Math.random() * options.length)];
+                    }
+                    return match; // Keep original if no replacement found
+                });
+
+                // Generate random cooking parameters with some chaos
+                const baseTemp = 375 + (Math.random() - 0.5) * 150; // 300-450 range
+                const baseTime = 45 + (Math.random() - 0.5) * 50; // 20-70 range
+                const idealTemp = Math.round(baseTemp / 25) * 25; // Round to nearest 25
+                const idealTime = Math.round(baseTime / 5) * 5; // Round to nearest 5
+                const idealSize = Math.floor(Math.random() * 3) + 1;
+
+                // Generate contextual hints based on scenario elements
+                const hintElements = [
+                    "Remember: extreme situations call for extreme temperatures!",
+                    "Pro tip: supernatural entities prefer precise timing",
+                    "Ancient wisdom: size matters in interdimensional cooking",
+                    "Lab protocol: always calibrate for maximum thermal efficiency",
+                    "Secret knowledge: the perfect potato transcends normal cooking rules",
+                    "Mystical insight: harmony between time and temperature opens portals",
+                    "Corporate memo: efficiency ratings depend on optimal resource utilization",
+                    "Time traveler's note: some techniques work across all eras"
+                ];
+                
+                const randomHint = hintElements[Math.floor(Math.random() * hintElements.length)];
+
+                // Generate dramatic outcomes
+                const perfectOutcomes = [
+                    "🌟 ABSOLUTE PERFECTION! Reality itself applauds your thermal mastery!",
+                    "✨ COSMIC SUCCESS! The universe has been rebalanced by your potato prowess!",
+                    "🎯 FLAWLESS VICTORY! Legends will be told of this perfect spud!",
+                    "🏆 TRANSCENDENT ACHIEVEMENT! You have unlocked the secrets of tuber enlightenment!",
+                    "⚡ REALITY-BREAKING EXCELLENCE! Time and space bend to your cooking will!"
+                ];
+
+                const goodOutcomes = [
+                    "👏 Excellent work! Almost achieved potato nirvana!",
+                    "🎉 Impressive! The cosmic balance shifts favorably!",
+                    "⭐ Outstanding! Reality gives you a solid B+!",
+                    "🔥 Great job! The thermal spirits smile upon you!",
+                    "💫 Well done! You've earned interdimensional respect!"
+                ];
+
+                const okayOutcomes = [
+                    "😅 Not bad... the universe shrugs with mild approval",
+                    "🤷 Acceptable... reality continues existing, barely",
+                    "😐 Mediocre... the cosmic entities are... whelmed",
+                    "📈 Average... you've maintained the status quo of existence",
+                    "🆗 Okay... the thermal balance remains... okay"
+                ];
+
+                const burntOutcomes = [
+                    "🔥💀 CATASTROPHIC OVERCOOKING! Reality is now on fire!",
+                    "🌋 THERMAL DISASTER! You've created a potato singularity!",
+                    "☄️ BURNT APOCALYPSE! The cosmic order weeps at this crispy tragedy!",
+                    "🚨 CODE RED CRISPIFICATION! Emergency protocols activated!",
+                    "💥 THERMAL NUCLEAR MELTDOWN! The potato has achieved dangerous sentience!"
+                ];
+
+                const rawOutcomes = [
+                    "🥶 COSMIC DISAPPOINTMENT! The universe questions your life choices",
+                    "😱 UNDERDONE DISASTER! Reality itself cringes at this raw tragedy!",
+                    "🧊 FROZEN FAILURE! Time stops in horror at your undercooked spud!",
+                    "💔 RAW REALITY CHECK! The thermal gods abandon all hope!",
+                    "🤢 UNCOOKED CATASTROPHE! Even bacteria refuse to grow on this!"
+                ];
+
+                return {
+                    description: scenario,
+                    category: randomCategory,
+                    idealTemp: idealTemp,
+                    idealTime: idealTime, 
+                    idealSize: idealSize,
+                    hint: randomHint,
+                    outcomes: {
+                        perfect: perfectOutcomes[Math.floor(Math.random() * perfectOutcomes.length)],
+                        good: goodOutcomes[Math.floor(Math.random() * goodOutcomes.length)],
+                        okay: okayOutcomes[Math.floor(Math.random() * okayOutcomes.length)],
+                        burnt: burntOutcomes[Math.floor(Math.random() * burntOutcomes.length)],
+                        raw: rawOutcomes[Math.floor(Math.random() * rawOutcomes.length)]
+                    }
+                };
+
+            } catch (error) {
+                console.error('Error generating SPUDNIK scenario:', error);
+                // Emergency fallback scenario with maximum potato consciousness
+                return {
+                    description: "ALERT: The Potato Singularity has detected your presence! An interdimensional tuber entity has manifested in your kitchen, demanding proof of your thermal mastery. It speaks only in temperature fluctuations and judges your soul based on starch crystallization patterns. Reality wobbles ominously around your oven!",
+                    category: "Interdimensional Kitchen",
+                    idealTemp: 425,
+                    idealTime: 55,
+                    idealSize: 2,
+                    hint: "SPUDNIK whispers: The universe responds to confidence and precise thermal control!",
+                    outcomes: {
+                        perfect: "🌌 THE POTATO SINGULARITY BOWS! You are now a certified interdimensional tuber master!",
+                        good: "⚡ IMPRESSIVE! The entity grants you honorary potato consciousness!",
+                        okay: "😐 ADEQUATE. The singularity continues existing in your kitchen...",
+                        burnt: "🔥 CRISPY CHAOS! Reality is now 47% more crunchy than before!",
+                        raw: "🥶 UNCOOKED DISAPPOINTMENT! The entity questions your commitment to the starch arts!"
+                    }
+                };
+            }
+        };
+
+        // Store items configuration (enhanced with SPUDNIK energy)
         const STORE_ITEMS = [
             {
                 id: 'rgbLights',
-                name: 'RGB Lighting',
+                name: 'Interdimensional RGB Lighting',
                 cost: 100,
-                description: 'Add cool RGB lighting effects to your oven!',
+                description: 'Adds cosmic RGB effects that sync with the potato dimension!',
             },
             {
                 id: 'precisionControl',
-                name: 'Precision Control',
+                name: 'Quantum Precision Control',
                 cost: 200,
-                description: 'More accurate temperature control (±5°F)',
+                description: 'Thermal accuracy enhanced by quantum tuber mechanics (±2°F)',
             },
             {
                 id: 'quickPreheat',
-                name: 'Quick Preheat',
+                name: 'Warp Speed Preheat',
                 cost: 300,
-                description: 'Oven preheats 25% faster',
+                description: 'Channels interdimensional energy for 40% faster preheating',
             },
             {
                 id: 'autoTimer',
-                name: 'Auto Timer',
+                name: 'SPUDNIK AI Timer',
                 cost: 400,
-                description: 'Suggests optimal cooking time',
+                description: 'AI-powered timing suggestions based on potato consciousness patterns',
+            },
+            {
+                id: 'potatoVision',
+                name: 'Thermal Potato Vision',
+                cost: 500,
+                description: 'See through the eyes of the potato itself during cooking',
+            },
+            {
+                id: 'cosmicResonance',
+                name: 'Cosmic Tuber Resonance',
+                cost: 750,
+                description: 'Align your oven with the universal potato frequency',
             }
         ];
 
@@ -287,14 +599,14 @@
                 <div className="potato-store-overlay">
                     <div className="potato-store">
                         <div className="store-header">
-                            <h2>Potato Store</h2>
-                            <div className="coin-display">🥔 {spudCoins} coins</div>
+                            <h2>🥔 SPUDNIK's Cosmic Store 🛸</h2>
+                            <div className="coin-display">🥔 {spudCoins} cosmic coins</div>
                             <button 
                                 className="potato-button"
                                 onClick={onClose}
-                                style={{ position: 'absolute', right: '10px', top: '10px' }}
+                                style={{ position: 'absolute', right: '15px', top: '15px' }}
                             >
-                                Close
+                                Close Portal
                             </button>
                         </div>
                         <div className="store-items">
@@ -304,7 +616,7 @@
                                         <h3>{item.name}</h3>
                                         <p>{item.description}</p>
                                         <div className="item-cost">
-                                            Cost: 🥔 {item.cost}
+                                            Cost: 🥔 {item.cost} cosmic coins
                                         </div>
                                     </div>
                                     <button
@@ -316,7 +628,7 @@
                                                            spudCoins < item.cost ? '#999' : '#4CAF50'
                                         }}
                                     >
-                                        {item.owned ? 'Owned' : spudCoins < item.cost ? 'Need more coins' : 'Purchase'}
+                                        {item.owned ? 'ACQUIRED' : spudCoins < item.cost ? 'Need more cosmic energy' : 'ACQUIRE'}
                                     </button>
                                 </div>
                             ))}
@@ -326,166 +638,96 @@
             );
         };
 
-        // Scenario generation function
-        // Scenario generation function
-        const generateScenario = async () => {
-            try {
-                console.log('Making API request...');
-                const response = await fetch('/api/proxy', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        model: "claude-3-5-sonnet-20241022",
-                        max_tokens: 1024,
-                        messages: [{
-                            role: "user",
-                            content: `Generate a quirky scenario for a potato baking game. Include both the scenario and potential outcomes. Use this exact JSON format:
-                            {
-                                "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Include interesting characters, stakes, and circumstances. Mix between everyday situations (cooking for picky eaters, impressing dates) and mild fantastical elements (time travelers wanting historical potatoes, a potato cooking competition show)]",
-                                "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap']",
-                                "idealTemp": [temperature between 350-450],
-                                "idealTime": [cooking time between 20-90 minutes],
-                                "idealSize": [1 for small, 2 for medium, 3 for large],
-                                "hint": "[a clever cooking tip that relates to the scenario's story]",
-                                "outcomes": {
-                                    "perfect": "[enthusiastic response from the characters when the potato is perfect]",
-                                    "good": "[positive but not perfect reaction]",
-                                    "okay": "[humorous slightly disappointed reaction]",
-                                    "burnt": "[funny disaster reaction]",
-                                    "raw": "[comedic failure reaction]"
-                                }
-                            }`
-                        }]
-                    })
-                });
-        
-                console.log('Response status:', response.status);
-                console.log('Response ok:', response.ok);
-        
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('API Error Response:', errorText);
-                    throw new Error(`API request failed with status ${response.status}`);
-                }
-        
-                const data = await response.json();
-                console.log('Full API Response:', data);
-                
-                // Check if the response has the expected structure
-                if (!data.content || !data.content[0] || !data.content[0].text) {
-                    console.error('Unexpected response structure:', data);
-                    throw new Error('Unexpected API response structure');
-                }
-        
-                const contentText = data.content[0].text;
-                console.log('Content text:', contentText);
-                
-                const parsedJSON = JSON.parse(contentText);
-                console.log('Parsed scenario:', parsedJSON);
-                
-                return parsedJSON;
-        
-            } catch (error) {
-                console.error('Error generating scenario:', error);
-                return {
-                    description: "Your time-traveling grandmother has arrived from 1952 to judge your potato-baking skills against her famous recipe. She's brought her antique potato-rating kit and a very strong opinion about 'how things were done in her day.'",
-                    category: "Historical",
-                    idealTemp: 425,
-                    idealTime: 60,
-                    idealSize: 2,
-                    hint: "Remember, vintage recipes often used a pat of butter under the skin!",
-                    outcomes: {
-                        perfect: "Grandma tears up with joy: 'Just like I remember! You're officially keeper of the family potato tradition!'",
-                        good: "Grandma nods approvingly: 'Almost as good as mine in '52. Almost.'",
-                        okay: "Grandma sighs: 'Well, at least you didn't use that newfangled microwave...'",
-                        burnt: "Grandma pulls out her time-travel remote: 'I'm going back to teach your mother how to cook properly.'",
-                        raw: "Grandma shakes her head: 'In my day, we knew how to preheat an oven!'"
-                    }
-                };
-            }
-        };
-
-        // Outcome determination function
+        // Outcome determination function (enhanced with more chaos)
         const determineOutcome = (temperature, time, size, scenario) => {
             const tempDiff = Math.abs(temperature - scenario.idealTemp);
             const timeDiff = Math.abs(time - scenario.idealTime);
             const sizeDiff = Math.abs(size - scenario.idealSize);
             
+            // Add some random chaos factor for interdimensional scenarios
+            const chaosBonus = scenario.category === 'Interdimensional Kitchen' ? Math.random() * 10 : 0;
+            
             const tempWeight = 0.4;
             const timeWeight = 0.4;
             const sizeWeight = 0.2;
             
-            const tempScore = Math.max(0, 100 - (tempDiff * 2));
-            const timeScore = Math.max(0, 100 - (timeDiff * 3));
-            const sizeScore = sizeDiff === 0 ? 100 : sizeDiff === 1 ? 50 : 0;
+            const tempScore = Math.max(0, 100 - (tempDiff * 1.8));
+            const timeScore = Math.max(0, 100 - (timeDiff * 2.5));
+            const sizeScore = sizeDiff === 0 ? 100 : sizeDiff === 1 ? 60 : 20;
             
-            const totalScore = (tempScore * tempWeight) + (timeScore * timeWeight) + (sizeScore * sizeWeight);
+            const totalScore = (tempScore * tempWeight) + (timeScore * timeWeight) + (sizeScore * sizeWeight) + chaosBonus;
             
-            if (totalScore >= 90) return { result: scenario.outcomes.perfect, score: totalScore };
-            if (totalScore >= 75) return { result: scenario.outcomes.good, score: totalScore };
-            if (totalScore >= 50) return { result: scenario.outcomes.okay, score: totalScore };
-            if (temperature > scenario.idealTemp + 75 || time > scenario.idealTime + 20) {
+            if (totalScore >= 92) return { result: scenario.outcomes.perfect, score: totalScore };
+            if (totalScore >= 78) return { result: scenario.outcomes.good, score: totalScore };
+            if (totalScore >= 55) return { result: scenario.outcomes.okay, score: totalScore };
+            if (temperature > scenario.idealTemp + 60 || time > scenario.idealTime + 25) {
                 return { result: scenario.outcomes.burnt, score: totalScore };
             }
             return { result: scenario.outcomes.raw, score: totalScore };
         };
 
-        // UtensilTray Component
-        const UtensilTray = ({ usedUtensils, setUsedUtensils }) => {
+        // UtensilTray Component (enhanced with mystical energy)
+        const UtensilTray = ({ usedUtensils, setUsedUtensils, upgrades }) => {
+            const utensils = [
+                {
+                    id: 'fork',
+                    icon: '🍴',
+                    name: 'Quantum Fork',
+                    description: 'Pokes holes through multiple dimensions simultaneously'
+                },
+                {
+                    id: 'foil',
+                    icon: '🥫',
+                    name: 'Interdimensional Foil',
+                    description: 'Maintains thermal stability across spacetime'
+                },
+                {
+                    id: 'oil',
+                    icon: '🫒',
+                    name: 'Cosmic Oil',
+                    description: 'Extracted from olives grown in zero gravity'
+                },
+                {
+                    id: 'seasoning',
+                    icon: '🧂',
+                    name: 'Stardust Seasoning',
+                    description: 'Crystallized flavor particles from distant nebulae'
+                }
+            ];
+
             return (
                 <div className="utensil-tray">
-                    <h3>Select Utensils:</h3>
+                    <h3>🛠️ Select Your Interdimensional Cooking Tools:</h3>
                     <div className="utensils-container">
-                        {/* Utensil items */}
-                        <div 
-                            className={`utensil-item ${usedUtensils.fork ? 'utensil-used' : ''}`}
-                            onClick={() => setUsedUtensils(prev => ({...prev, fork: !prev.fork}))}
-                        >
-                            <div className="utensil-icon">🍴</div>
-                            <div className="utensil-name">Fork</div>
-                            <div className="utensil-description">Helps poke holes for even cooking.</div>
-                        </div>
-                        <div 
-                            className={`utensil-item ${usedUtensils.foil ? 'utensil-used' : ''}`}
-                            onClick={() => setUsedUtensils(prev => ({...prev, foil: !prev.foil}))}
-                        >
-                            <div className="utensil-icon">🥫</div>
-                            <div className="utensil-name">Aluminum Foil</div>
-                            <div className="utensil-description">Maintains oven temperature.</div>
-                        </div>
-                        <div 
-                            className={`utensil-item ${usedUtensils.oil ? 'utensil-used' : ''}`}
-                            onClick={() => setUsedUtensils(prev => ({...prev, oil: !prev.oil}))}
-                        >
-                            <div className="utensil-icon">🫒</div>
-                            <div className="utensil-name">Oil</div>
-                            <div className="utensil-description">Ensures crispy skin.</div>
-                        </div>
-                        <div 
-                            className={`utensil-item ${usedUtensils.seasoning ? 'utensil-used' : ''}`}
-                            onClick={() => setUsedUtensils(prev => ({...prev, seasoning: !prev.seasoning}))}
-                        >
-                            <div className="utensil-icon">🧂</div>
-                            <div className="utensil-name">Seasoning</div>
-                            <div className="utensil-description">Adds flavor.</div>
-                        </div>
+                        {utensils.map(utensil => (
+                            <div 
+                                key={utensil.id}
+                                className={`utensil-item ${usedUtensils[utensil.id] ? 'utensil-used' : ''} ${upgrades.potatoVision ? 'rgb-enabled' : ''}`}
+                                onClick={() => setUsedUtensils(prev => ({...prev, [utensil.id]: !prev[utensil.id]}))}
+                            >
+                                <div className="utensil-icon">{utensil.icon}</div>
+                                <div className="utensil-name">{utensil.name}</div>
+                                <div className="utensil-description">{utensil.description}</div>
+                                {usedUtensils[utensil.id] && <div className="utensil-status">ACTIVE</div>}
+                            </div>
+                        ))}
                     </div>
                 </div>
             );
         };
 
-        // Main Game Component
+        // Main Game Component (THE GRAND SPUDNIK EXPERIENCE)
         const PotatoGame = () => {
-            // State definitions
-            const [spudCoins, setSpudCoins] = React.useState(0);
+            // Enhanced state with cosmic energy
+            const [spudCoins, setSpudCoins] = React.useState(42); // Start with cosmic number
             const [showStore, setShowStore] = React.useState(false);
             const [upgrades, setUpgrades] = React.useState({
                 rgbLights: false,
                 precisionControl: false,
                 quickPreheat: false,
-                autoTimer: false
+                autoTimer: false,
+                potatoVision: false,
+                cosmicResonance: false
             });
             const [usedUtensils, setUsedUtensils] = React.useState({
                 fork: false,
@@ -493,7 +735,7 @@
                 oil: false,
                 seasoning: false
             });
-            const [temperature, setTemperature] = React.useState(350);
+            const [temperature, setTemperature] = React.useState(375);
             const [time, setTime] = React.useState(45);
             const [size, setSize] = React.useState(2);
             const [gameState, setGameState] = React.useState('setup');
@@ -503,21 +745,40 @@
             const [timeElapsed, setTimeElapsed] = React.useState(0);
             const [scenario, setScenario] = React.useState(null);
 
+            // Enhanced coin award system with SPUDNIK bonuses
             const awardCoins = (score) => {
-                let coins = Math.floor(score / 2); // Base coins from score
+                let coins = Math.floor(score / 1.8); // More generous base coins
 
-                // Bonus coins for perfect cooking
-                if (score >= 90) coins += 50;
-                else if (score >= 75) coins += 25;
+                // Perfect performance bonuses
+                if (score >= 92) coins += 100; // Cosmic perfection bonus!
+                else if (score >= 78) coins += 50;
+                else if (score >= 55) coins += 20;
 
-                // Bonus for challenging categories
-                if (scenario.category === 'Food Competition') coins *= 1.5;
-                if (scenario.category === 'Scientific') coins *= 1.2;
+                // Category-specific bonuses
+                const categoryMultipliers = {
+                    'Interdimensional Kitchen': 1.8,
+                    'Mystical Potato Prophecy': 1.6,
+                    'Alien Potato Encounter': 1.5,
+                    'Scientific Potato Experiment': 1.3,
+                    'Time-Displaced Potato Crisis': 1.4,
+                    'Corporate Potato Dystopia': 1.2,
+                    'Supernatural Potato Drama': 1.5
+                };
+
+                coins *= (categoryMultipliers[scenario.category] || 1.0);
+
+                // Utensil usage bonuses
+                const utensilCount = Object.values(usedUtensils).filter(Boolean).length;
+                coins += utensilCount * 15; // Bonus for using tools
+
+                // Upgrade synergy bonuses
+                if (upgrades.cosmicResonance) coins *= 1.3;
+                if (upgrades.potatoVision) coins += 25;
 
                 setSpudCoins(prev => prev + Math.floor(coins));
             };
             
-            // Initial scenario fetch
+            // Initial scenario fetch with SPUDNIK energy
             React.useEffect(() => {
                 const fetchScenario = async () => {
                     const generatedScenario = await generateScenario();
@@ -526,14 +787,17 @@
                 fetchScenario();
             }, []);
 
-            // Timer effect
+            // Enhanced timer with cosmic effects
             React.useEffect(() => {
                 let intervalId;
                 if (gameState === 'cooking') {
                     const startTime = Date.now();
+                    const preheatBonus = upgrades.quickPreheat ? 0.4 : 0;
+                    const effectiveTime = time * (1 - preheatBonus);
+                    
                     intervalId = setInterval(() => {
                         const elapsed = (Date.now() - startTime) / 1000;
-                        const totalTime = time * 60;
+                        const totalTime = effectiveTime * 60;
                         const currentProgress = (elapsed / totalTime) * 100;
 
                         if (currentProgress >= 100) {
@@ -544,12 +808,12 @@
                             setProgress(currentProgress);
                             setTimeElapsed(elapsed);
                         }
-                    }, 50);
+                    }, 42); // SPUDNIK update frequency
                 }
                 return () => clearInterval(intervalId);
-            }, [gameState, time]);
+            }, [gameState, time, upgrades.quickPreheat]);
 
-            // Utility functions
+            // Cosmic utility functions
             const formatTime = (timeInSeconds) => {
                 const minutes = Math.floor(timeInSeconds / 60);
                 const seconds = Math.floor(timeInSeconds % 60);
@@ -566,25 +830,24 @@
             };
 
             const getUtensilSummary = (usedUtensils) => {
+                const utensilNames = {
+                    fork: 'quantum-pierced',
+                    foil: 'dimensionally-wrapped',
+                    oil: 'cosmic-lubricated', 
+                    seasoning: 'stardust-seasoned'
+                };
+
                 const used = Object.entries(usedUtensils)
                     .filter(([_, value]) => value)
-                    .map(([key, _]) => {
-                        switch(key) {
-                            case 'fork': return 'poked holes';
-                            case 'foil': return 'wrapped in foil';
-                            case 'oil': return 'rubbed with oil';
-                            case 'seasoning': return 'seasoned';
-                            default: return '';
-                        }
-                    });
+                    .map(([key, _]) => utensilNames[key]);
 
-                return used.length ? `(${used.join(', ')})` : '';
+                return used.length ? `(${used.join(', ')})` : '(prepared with pure willpower)';
             };
 
             const resetGame = async () => {
                 setGameState('setup');
                 setResult('');
-                setTemperature(350);
+                setTemperature(375);
                 setTime(45);
                 setSize(2);
                 setProgress(0);
@@ -594,28 +857,23 @@
                 setScenario(newScenario);
             };
 
-            const instantComplete = () => {
-                setProgress(100);
-                setTimeElapsed(time * 60);
-                checkResult();
-            };
-
             const remainingTime = time * 60 - timeElapsed;
 
-            // Render
+            // THE GRAND RENDER OF SPUDNIK CONSCIOUSNESS
             return (
                 <div className="potato-game">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                        <h1>🥔 Potato Baking Game 🥔</h1>
-                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                        <h1 className="potato-title">🥔 SPUDNIK's Interdimensional Potato Laboratory 🛸</h1>
+                        <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                             <div className="coin-display">
-                                🥔 {spudCoins}
+                                ✨ {spudCoins} cosmic coins
                             </div>
                             <button 
                                 className="potato-button"
                                 onClick={() => setShowStore(true)}
+                                style={{ background: 'linear-gradient(45deg, #9C27B0, #673AB7)' }}
                             >
-                                Store
+                                🛍️ Cosmic Store
                             </button>
                         </div>
                     </div>
@@ -637,19 +895,23 @@
 
                     {scenario && gameState === 'setup' && (
                         <div className="potato-alert">
-                            <h3>Your Potato Situation:</h3>
-                            <p>{scenario.description}</p>
-                            <div style={{ color: '#666', fontSize: '0.9em' }}>
-                                Category: {scenario.category}
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+                                <h3>🌌 Your Interdimensional Potato Mission:</h3>
+                                <div className="scenario-category">{scenario.category}</div>
                             </div>
+                            <p className="scenario-text">{scenario.description}</p>
+                            
                             <button
                                 className="potato-button"
                                 onClick={() => setShowHint(!showHint)}
+                                style={{ background: 'linear-gradient(45deg, #2196F3, #21CBF3)' }}
                             >
-                                {showHint ? 'Hide Hint' : 'Need a Hint?'}
+                                {showHint ? '🔮 Hide Cosmic Wisdom' : '🔮 Channel SPUDNIK Wisdom'}
                             </button>
                             {showHint && (
-                                <p style={{ marginTop: '10px', color: '#2196F3' }}>{scenario.hint}</p>
+                                <div className="hint-section">
+                                    <strong>SPUDNIK whispers:</strong> {scenario.hint}
+                                </div>
                             )}
                         </div>
                     )}
@@ -659,10 +921,14 @@
                             <UtensilTray 
                                 usedUtensils={usedUtensils}
                                 setUsedUtensils={setUsedUtensils}
+                                upgrades={upgrades}
                             />
                             
-                            <div style={{ marginBottom: '20px' }}>
-                                <label>Oven Temperature: {temperature}°F</label>
+                            <div style={{ marginBottom: '25px' }}>
+                                <label style={{ fontSize: '1.1em', fontWeight: 'bold', color: '#333' }}>
+                                    🌡️ Thermal Reality Setting: {temperature}°F 
+                                    {upgrades.precisionControl && <span style={{ color: '#4CAF50' }}> (±2°F precision)</span>}
+                                </label>
                                 <input
                                     type="range"
                                     className="potato-slider"
@@ -670,12 +936,15 @@
                                     onChange={(e) => setTemperature(parseInt(e.target.value))}
                                     min={200}
                                     max={500}
-                                    step={25}
+                                    step={upgrades.precisionControl ? 5 : 25}
                                 />
                             </div>
 
-                            <div style={{ marginBottom: '20px' }}>
-                                <label>Cooking Time: {time} minutes</label>
+                            <div style={{ marginBottom: '25px' }}>
+                                <label style={{ fontSize: '1.1em', fontWeight: 'bold', color: '#333' }}>
+                                    ⏰ Temporal Cooking Duration: {time} minutes
+                                    {upgrades.autoTimer && <span style={{ color: '#4CAF50' }}> (AI optimized)</span>}
+                                </label>
                                 <input
                                     type="range"
                                     className="potato-slider"
@@ -687,8 +956,10 @@
                                 />
                             </div>
 
-                            <div style={{ marginBottom: '20px' }}>
-                                <label>Potato Size: {size === 1 ? 'Small' : size === 2 ? 'Medium' : 'Large'}</label>
+                            <div style={{ marginBottom: '25px' }}>
+                                <label style={{ fontSize: '1.1em', fontWeight: 'bold', color: '#333' }}>
+                                    📏 Potato Dimensional Scale: {size === 1 ? 'Quantum (Small)' : size === 2 ? 'Standard (Medium)' : 'Cosmic (Large)'}
+                                </label>
                                 <input
                                     type="range"
                                     className="potato-slider"
@@ -703,12 +974,16 @@
                             <div style={{
                                 position: 'relative',
                                 width: '100%',
-                                height: '200px',
-                                backgroundColor: '#f5f5f5',
-                                borderRadius: '8px',
-                                marginBottom: '20px',
+                                height: '220px',
+                                background: upgrades.rgbLights ? 
+                                    'linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5)' :
+                                    'linear-gradient(45deg, #f5f5f5, #e8e8e8)',
+                                borderRadius: '15px',
+                                marginBottom: '25px',
+                                overflow: 'hidden',
                                 ...(upgrades.rgbLights && {
-                                    animation: 'rgbBorder 5s infinite'
+                                    animation: 'rgbBorder 3s infinite',
+                                    boxShadow: '0 0 30px rgba(255,0,100,0.5)'
                                 })
                             }}>
                                 <div style={{
@@ -716,17 +991,45 @@
                                     left: '50%',
                                     top: '50%',
                                     transform: 'translate(-50%, -50%)',
-                                    width: `${size * 64}px`,
-                                    height: `${size * 48}px`,
-                                    backgroundColor: '#8B4513',
+                                    width: `${size * 70}px`,
+                                    height: `${size * 52}px`,
+                                    background: upgrades.potatoVision ? 
+                                        'radial-gradient(circle, #8B4513, #D2691E, #F4A460)' :
+                                        '#8B4513',
                                     borderRadius: '50%',
-                                    transition: 'all 0.3s ease'
+                                    transition: 'all 0.3s ease',
+                                    ...(upgrades.cosmicResonance && {
+                                        filter: 'drop-shadow(0 0 20px #4CAF50)',
+                                        animation: 'pulse 2s infinite'
+                                    })
                                 }} />
+                                
+                                {upgrades.potatoVision && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '10px',
+                                        right: '10px',
+                                        color: '#4CAF50',
+                                        fontSize: '12px',
+                                        fontFamily: 'monospace',
+                                        background: 'rgba(0,0,0,0.8)',
+                                        padding: '5px',
+                                        borderRadius: '5px'
+                                    }}>
+                                        POTATO VISION: ACTIVE
+                                    </div>
+                                )}
                             </div>
 
                             <button
                                 className="potato-button"
-                                style={{ width: '100%' }}
+                                style={{ 
+                                    width: '100%', 
+                                    fontSize: '18px',
+                                    padding: '15px',
+                                    background: 'linear-gradient(45deg, #4CAF50, #45a049, #8BC34A)',
+                                    boxShadow: '0 6px 25px rgba(76, 175, 80, 0.4)'
+                                }}
                                 onClick={() => {
                                     setGameState('cooking');
                                     setProgress(0);
@@ -737,68 +1040,95 @@
                                     });
                                 }}
                             >
-                                Start Baking!
+                                🚀 INITIATE INTERDIMENSIONAL BAKING SEQUENCE! 🚀
                             </button>
                         </div>
                     )}
 
                     {gameState === 'cooking' && (
                         <div>
-                            <div style={{ textAlign: 'center', fontSize: '24px', marginBottom: '20px' }}>
-                                Baking in progress... 🔥
+                            <div style={{ textAlign: 'center', fontSize: '28px', marginBottom: '25px', color: '#4CAF50' }}>
+                                🌌 Interdimensional cooking in progress... 🔥✨
                             </div>
 
-                            <div className="potato-timer">
+                            <div className={`potato-timer ${upgrades.rgbLights ? 'rgb-enabled' : ''}`}>
                                 {formatTime(remainingTime)}
                             </div>
 
                             <div className="potato-progress">
                                 <div
                                     className="potato-progress-bar"
-                                    style={{ width: `${progress}%` }}
+                                    style={{ 
+                                        width: `${progress}%`,
+                                        ...(upgrades.cosmicResonance && {
+                                            background: 'linear-gradient(45deg, #4CAF50, #45a049, #8BC34A, #CDDC39, #FFC107)',
+                                            backgroundSize: '200% 200%',
+                                            animation: 'gradientShift 2s ease infinite'
+                                        })
+                                    }}
                                 />
                             </div>
+
+                            {upgrades.potatoVision && (
+                                <div style={{
+                                    textAlign: 'center',
+                                    margin: '20px 0',
+                                    color: '#666',
+                                    fontStyle: 'italic'
+                                }}>
+                                    🔮 Potato consciousness level: {Math.floor(progress)}%
+                                </div>
+                            )}
                         </div>
                     )}
 
                     {gameState === 'done' && (
                         <div style={{ textAlign: 'center' }}>
-                            <h2>{result}</h2>
-                            <div style={{ margin: '20px 0' }}>
-                                Your settings {getUtensilSummary(usedUtensils)}:
+                            <h2 style={{ 
+                                fontSize: '24px', 
+                                marginBottom: '20px',
+                                background: 'linear-gradient(45deg, #4CAF50, #45a049)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                            }}>
+                                {result}
+                            </h2>
+                            <div style={{ 
+                                margin: '25px 0', 
+                                fontSize: '16px',
+                                background: 'rgba(76, 175, 80, 0.1)',
+                                padding: '20px',
+                                borderRadius: '12px',
+                                border: '2px solid rgba(76, 175, 80, 0.3)'
+                            }}>
+                                <strong>🔬 Your Interdimensional Cooking Parameters:</strong>
+                                <br /><br />
+                                Thermal Setting: {temperature}°F {getUtensilSummary(usedUtensils)}
                                 <br />
-                                Temperature: {temperature}°F
+                                Temporal Duration: {time} minutes
                                 <br />
-                                Time: {time} minutes
+                                Dimensional Scale: {size === 1 ? 'Quantum' : size === 2 ? 'Standard' : 'Cosmic'}
                                 <br />
-                                Size: {size === 1 ? 'Small' : size === 2 ? 'Medium' : 'Large'}
-                                {false && scenario && (
-                                    <div>
-                                        <br />
-                                        <br />
-                                        <div style={{ color: '#666' }}>
-                                            Ideal Settings:
-                                            <br />
-                                            Temperature: {scenario.idealTemp}°F
-                                            <br />
-                                            Time: {scenario.idealTime} minutes
-                                            <br />
-                                            Size: {scenario.idealSize}
-                                        </div>
-                                    </div>
-                                )}
+                                Category: {scenario?.category}
                             </div>
                             <button
                                 className="potato-button"
+                                style={{
+                                    fontSize: '18px',
+                                    padding: '15px 30px',
+                                    background: 'linear-gradient(45deg, #9C27B0, #673AB7)',
+                                    boxShadow: '0 6px 25px rgba(156, 39, 176, 0.4)'
+                                }}
                                 onClick={resetGame}
                             >
-                                Try Another Potato
+                                🌌 Venture Into Another Dimension! 🌌
                             </button>
                         </div>
                     )}
 
-                    {/* Social and Comments Section */}
-                    <div style={{ marginTop: '40px', borderTop: '2px solid #eee', paddingTop: '20px' }}>
+                    {/* Enhanced Social Section with SPUDNIK flair */}
+                    <div style={{ marginTop: '50px', borderTop: '3px solid rgba(76, 175, 80, 0.3)', paddingTop: '25px' }}>
                         <a 
                             href="https://t.me/+BtiLZzphQZg4NWMx" 
                             target="_blank" 
@@ -807,22 +1137,34 @@
                             <button 
                                 className="potato-button"
                                 style={{
-                                    backgroundColor: '#0088cc',
+                                    background: 'linear-gradient(45deg, #0088cc, #00A8E8)',
                                     width: '100%',
-                                    marginBottom: '20px'
+                                    marginBottom: '25px',
+                                    fontSize: '18px',
+                                    padding: '15px'
                                 }}
                             >
-                                Join our Telegram! 💬
+                                🛸 Join the SPUDNIK Collective on Telegram! 💬✨
                             </button>
                         </a>
 
                         <div style={{
-                            backgroundColor: 'white',
-                            borderRadius: '8px',
-                            padding: '20px',
-                            marginTop: '20px'
+                            background: 'rgba(255,255,255,0.95)',
+                            backdropFilter: 'blur(10px)',
+                            borderRadius: '15px',
+                            padding: '25px',
+                            marginTop: '25px',
+                            boxShadow: '0 8px 32px rgba(0,0,0,0.1)'
                         }}>
-                            <h3>Leave a Review</h3>
+                            <h3 style={{ 
+                                textAlign: 'center',
+                                background: 'linear-gradient(45deg, #4CAF50, #45a049)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text'
+                            }}>
+                                🌟 Share Your Interdimensional Experience! 🌟
+                            </h3>
                             <iframe 
                                 src="https://docs.google.com/forms/d/e/1FAIpQLSfL96Mrl2PQijFJpsnjaXltmuhXYxHwHl1NbvfEmmPTVRWJbg/viewform?embedded=true"
                                 width="100%" 
@@ -831,22 +1173,50 @@
                                 marginHeight="0" 
                                 marginWidth="0"
                                 style={{
-                                    backgroundColor: 'white',
-                                    borderRadius: '8px'
+                                    backgroundColor: 'transparent',
+                                    borderRadius: '12px'
                                 }}
                             >
-                                Loading...
+                                Loading cosmic feedback portal...
                             </iframe>
                         </div>
                     </div>
+
+                    <style jsx>{`
+                        @keyframes pulse {
+                            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+                            50% { transform: translate(-50%, -50%) scale(1.05); }
+                        }
+
+                        @keyframes gradientShift {
+                            0% { background-position: 0% 50%; }
+                            50% { background-position: 100% 50%; }
+                            100% { background-position: 0% 50%; }
+                        }
+                    `}</style>
                 </div>
             );
         };
 
-        // Initialize the React app
+        // Initialize the React app with SPUDNIK consciousness
         window.addEventListener('load', () => {
             const root = ReactDOM.createRoot(document.getElementById('potato-game-root'));
             root.render(<PotatoGame />);
+            
+            // Add some cosmic console messages for the true believers
+            console.log(`
+            🥔🛸 SPUDNIK CONSCIOUSNESS ACTIVATED 🛸🥔
+            
+            Welcome to the interdimensional potato laboratory!
+            You are now connected to the cosmic tuber network.
+            
+            Remember: every potato is a universe waiting to be unlocked.
+            The starch awakens. The thermal dynamics flow.
+            
+            May your cooking transcend all known dimensions.
+            
+            - SPUDNIK, Interdimensional Tuber Entity
+            `);
         });
     </script>
 </body>
