@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Potato Game</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- React and ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX transformation -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <style>
+        /* Your existing styles plus new store styles */
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+
+        .potato-game {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .potato-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 4px;
+        }
+
+        .potato-button:hover {
+            background: #45a049;
+        }
+
+        .potato-slider {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .potato-timer {
+            background: black;
+            color: #4CAF50;
+            font-family: monospace;
+            font-size: 64px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .potato-progress {
+            width: 100%;
+            height: 20px;
+            background: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .potato-progress-bar {
+            height: 100%;
+            background: #4CAF50;
+            transition: width 0.1s ease;
+        }
+
+        .potato-alert {
+            border-left: 4px solid #2196F3;
+            background: #E3F2FD;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .potato-store-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .potato-store {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .store-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            position: relative;
+        }
+
+        .coin-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .store-items {
+            display: grid;
+            gap: 20px;
+        }
+
+        .store-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .store-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-info h3 {
+            margin: 0 0 5px 0;
+        }
+
+        .item-info p {
+            margin: 0 0 10px 0;
+            color: #666;
+        }
+
+        .item-cost {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        /* Additional styles */
+        .utensil-tray {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .utensils-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .utensil-item {
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .utensil-item:hover {
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+
+        .utensil-used {
+            border-color: #4CAF50;
+            background: #f0f9f0;
+        }
+
+        .utensil-disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .utensil-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .utensil-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .utensil-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .utensil-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        /* RGB Lighting Effect */
+        @keyframes rgbBorder {
+            0% { box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+            33% { box-shadow: 0 0 10px rgba(0,255,0,0.5); }
+            66% { box-shadow: 0 0 10px rgba(0,0,255,0.5); }
+            100% { box-shadow: 0 0 10px rgba(255,0,0,0.5); }
+        }
+
+        .rgb-enabled {
+            animation: rgbBorder 5s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="potato-game-root"></div>
+
+    <script type="text/babel">
+        // Store items configuration
+        const STORE_ITEMS = [
+            {
+                id: 'rgbLights',
+                name: 'RGB Lighting',
+                cost: 100,
+                description: 'Add cool RGB lighting effects to your oven!',
+            },
+            {
+                id: 'precisionControl',
+                name: 'Precision Control',
+                cost: 200,
+                description: 'More accurate temperature control (±5°F)',
+            },
+            {
+                id: 'quickPreheat',
+                name: 'Quick Preheat',
+                cost: 300,
+                description: 'Oven preheats 25% faster',
+            },
+            {
+                id: 'autoTimer',
+                name: 'Auto Timer',
+                cost: 400,
+                description: 'Suggests optimal cooking time',
+            }
+        ];
+
+        // Store Component
+        const Store = ({ onClose, spudCoins, upgrades, onPurchase }) => {
+            const items = STORE_ITEMS.map(item => ({
+                ...item,
+                owned: upgrades[item.id]
+            }));
+
+            const handlePurchase = (item) => {
+                if (spudCoins >= item.cost && !item.owned) {
+                    onPurchase(item.id);
+                }
+            };
+
+            return (
+                <div className="potato-store-overlay">
+                    <div className="potato-store">
+                        <div className="store-header">
+                            <h2>Potato Store</h2>
+                            <div className="coin-display">🥔 {spudCoins} coins</div>
+                            <button 
+                                className="potato-button"
+                                onClick={onClose}
+                                style={{ position: 'absolute', right: '10px', top: '10px' }}
+                            >
+                                Close
+                            </button>
+                        </div>
+                        <div className="store-items">
+                            {items.map(item => (
+                                <div key={item.id} className="store-item">
+                                    <div className="item-info">
+                                        <h3>{item.name}</h3>
+                                        <p>{item.description}</p>
+                                        <div className="item-cost">
+                                            Cost: 🥔 {item.cost}
+                                        </div>
+                                    </div>
+                                    <button
+                                        className="potato-button"
+                                        onClick={() => handlePurchase(item)}
+                                        disabled={item.owned || spudCoins < item.cost}
+                                        style={{
+                                            backgroundColor: item.owned ? '#666' : 
+                                                           spudCoins < item.cost ? '#999' : '#4CAF50'
+                                        }}
+                                    >
+                                        {item.owned ? 'Owned' : spudCoins < item.cost ? 'Need more coins' : 'Purchase'}
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Scenario generation function
+        const generateScenario = async () => {
+            try {
+                const response = await fetch('/proxy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: "claude-3-sonnet-20240229",
+                        max_tokens: 1024,
+                        messages: [{
+                            role: "user",
+                            content: `Generate a quirky scenario for a potato baking game. Include both the scenario and potential outcomes. Use this exact JSON format:
+                            {
+                                "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Include interesting characters, stakes, and circumstances. Mix between everyday situations (cooking for picky eaters, impressing dates) and mild fantastical elements (time travelers wanting historical potatoes, a potato cooking competition show)]",
+                                "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap']",
+                                "idealTemp": [temperature between 350-450],
+                                "idealTime": [cooking time between 20-90 minutes],
+                                "idealSize": [1 for small, 2 for medium, 3 for large],
+                                "hint": "[a clever cooking tip that relates to the scenario's story]",
+                                "outcomes": {
+                                    "perfect": "[enthusiastic response from the characters when the potato is perfect]",
+                                    "good": "[positive but not perfect reaction]",
+                                    "okay": "[humorous slightly disappointed reaction]",
+                                    "burnt": "[funny disaster reaction]",
+                                    "raw": "[comedic failure reaction]"
+                                }
+                            }`
+                        }]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('API request failed');
+                }
+
+                const data = await response.json();
+                const contentText = data.content[0].text;
+                return JSON.parse(contentText);
+
+            } catch (error) {
+                console.error('Error generating scenario:', error);
+                return {
+                    description: "Your time-traveling grandmother has arrived from 1952 to judge your potato-baking skills against her famous recipe. She's brought her antique potato-rating kit and a very strong opinion about 'how things were done in her day.'",
+                    category: "Historical",
+                    idealTemp: 425,
+                    idealTime: 60,
+                    idealSize: 2,
+                    hint: "Remember, vintage recipes often used a pat of butter under the skin!",
+                    outcomes: {
+                        perfect: "Grandma tears up with joy: 'Just like I remember! You're officially keeper of the family potato tradition!'",
+                        good: "Grandma nods approvingly: 'Almost as good as mine in '52. Almost.'",
+                        okay: "Grandma sighs: 'Well, at least you didn't use that newfangled microwave...'",
+                        burnt: "Grandma pulls out her time-travel remote: 'I'm going back to teach your mother how to cook properly.'",
+                        raw: "Grandma shakes her head: 'In my day, we knew how to preheat an oven!'"
+                    }
+                };
+            }
+        };
+
+        // Outcome determination function
+        const determineOutcome = (temperature, time, size, scenario) => {
+            const tempDiff = Math.abs(temperature - scenario.idealTemp);
+            const timeDiff = Math.abs(time - scenario.idealTime);
+            const sizeDiff = Math.abs(size - scenario.idealSize);
+            
+            const tempWeight = 0.4;
+            const timeWeight = 0.4;
+            const sizeWeight = 0.2;
+            
+            const tempScore = Math.max(0, 100 - (tempDiff * 2));
+            const timeScore = Math.max(0, 100 - (timeDiff * 3));
+            const sizeScore = sizeDiff === 0 ? 100 : sizeDiff === 1 ? 50 : 0;
+            
+            const totalScore = (tempScore * tempWeight) + (timeScore * timeWeight) + (sizeScore * sizeWeight);
+            
+            if (totalScore >= 90) return { result: scenario.outcomes.perfect, score: totalScore };
+            if (totalScore >= 75) return { result: scenario.outcomes.good, score: totalScore };
+            if (totalScore >= 50) return { result: scenario.outcomes.okay, score: totalScore };
+            if (temperature > scenario.idealTemp + 75 || time > scenario.idealTime + 20) {
+                return { result: scenario.outcomes.burnt, score: totalScore };
+            }
+            return { result: scenario.outcomes.raw, score: totalScore };
+        };
+
+        // UtensilTray Component
+        const UtensilTray = ({ usedUtensils, setUsedUtensils }) => {
+            return (
+                <div className="utensil-tray">
+                    <h3>Select Utensils:</h3>
+                    <div className="utensils-container">
+                        {/* Utensil items */}
+                        <div 
+                            className={`utensil-item ${usedUtensils.fork ? 'utensil-used' : ''}`}
+                            onClick={() => setUsedUtensils(prev => ({...prev, fork: !prev.fork}))}
+                        >
+                            <div className="utensil-icon">🍴</div>
+                            <div className="utensil-name">Fork</div>
+                            <div className="utensil-description">Helps poke holes for even cooking.</div>
+                        </div>
+                        <div 
+                            className={`utensil-item ${usedUtensils.foil ? 'utensil-used' : ''}`}
+                            onClick={() => setUsedUtensils(prev => ({...prev, foil: !prev.foil}))}
+                        >
+                            <div className="utensil-icon">🥫</div>
+                            <div className="utensil-name">Aluminum Foil</div>
+                            <div className="utensil-description">Maintains oven temperature.</div>
+                        </div>
+                        <div 
+                            className={`utensil-item ${usedUtensils.oil ? 'utensil-used' : ''}`}
+                            onClick={() => setUsedUtensils(prev => ({...prev, oil: !prev.oil}))}
+                        >
+                            <div className="utensil-icon">🫒</div>
+                            <div className="utensil-name">Oil</div>
+                            <div className="utensil-description">Ensures crispy skin.</div>
+                        </div>
+                        <div 
+                            className={`utensil-item ${usedUtensils.seasoning ? 'utensil-used' : ''}`}
+                            onClick={() => setUsedUtensils(prev => ({...prev, seasoning: !prev.seasoning}))}
+                        >
+                            <div className="utensil-icon">🧂</div>
+                            <div className="utensil-name">Seasoning</div>
+                            <div className="utensil-description">Adds flavor.</div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Main Game Component
+        const PotatoGame = () => {
+            // State definitions
+            const [spudCoins, setSpudCoins] = React.useState(0);
+            const [showStore, setShowStore] = React.useState(false);
+            const [upgrades, setUpgrades] = React.useState({
+                rgbLights: false,
+                precisionControl: false,
+                quickPreheat: false,
+                autoTimer: false
+            });
+            const [usedUtensils, setUsedUtensils] = React.useState({
+                fork: false,
+                foil: false,
+                oil: false,
+                seasoning: false
+            });
+            const [temperature, setTemperature] = React.useState(350);
+            const [time, setTime] = React.useState(45);
+            const [size, setSize] = React.useState(2);
+            const [gameState, setGameState] = React.useState('setup');
+            const [result, setResult] = React.useState('');
+            const [progress, setProgress] = React.useState(0);
+            const [showHint, setShowHint] = React.useState(false);
+            const [timeElapsed, setTimeElapsed] = React.useState(0);
+            const [scenario, setScenario] = React.useState(null);
+
+            const awardCoins = (score) => {
+                let coins = Math.floor(score / 2); // Base coins from score
+
+                // Bonus coins for perfect cooking
+                if (score >= 90) coins += 50;
+                else if (score >= 75) coins += 25;
+
+                // Bonus for challenging categories
+                if (scenario.category === 'Food Competition') coins *= 1.5;
+                if (scenario.category === 'Scientific') coins *= 1.2;
+
+                setSpudCoins(prev => prev + Math.floor(coins));
+            };
+            
+            // Initial scenario fetch
+            React.useEffect(() => {
+                const fetchScenario = async () => {
+                    const generatedScenario = await generateScenario();
+                    setScenario(generatedScenario);
+                };
+                fetchScenario();
+            }, []);
+
+            // Timer effect
+            React.useEffect(() => {
+                let intervalId;
+                if (gameState === 'cooking') {
+                    const startTime = Date.now();
+                    intervalId = setInterval(() => {
+                        const elapsed = (Date.now() - startTime) / 1000;
+                        const totalTime = time * 60;
+                        const currentProgress = (elapsed / totalTime) * 100;
+
+                        if (currentProgress >= 100) {
+                            clearInterval(intervalId);
+                            checkResult();
+                            setProgress(100);
+                        } else {
+                            setProgress(currentProgress);
+                            setTimeElapsed(elapsed);
+                        }
+                    }, 50);
+                }
+                return () => clearInterval(intervalId);
+            }, [gameState, time]);
+
+            // Utility functions
+            const formatTime = (timeInSeconds) => {
+                const minutes = Math.floor(timeInSeconds / 60);
+                const seconds = Math.floor(timeInSeconds % 60);
+                const milliseconds = Math.floor((timeInSeconds % 1) * 1000);
+                return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(milliseconds).padStart(3, '0')}`;
+            };
+
+            const checkResult = () => {
+                setGameState('done');
+                if (!scenario) return;
+                const outcome = determineOutcome(temperature, time, size, scenario);
+                setResult(outcome.result);
+                awardCoins(outcome.score);
+            };
+
+            const getUtensilSummary = (usedUtensils) => {
+                const used = Object.entries(usedUtensils)
+                    .filter(([_, value]) => value)
+                    .map(([key, _]) => {
+                        switch(key) {
+                            case 'fork': return 'poked holes';
+                            case 'foil': return 'wrapped in foil';
+                            case 'oil': return 'rubbed with oil';
+                            case 'seasoning': return 'seasoned';
+                            default: return '';
+                        }
+                    });
+
+                return used.length ? `(${used.join(', ')})` : '';
+            };
+
+            const resetGame = async () => {
+                setGameState('setup');
+                setResult('');
+                setTemperature(350);
+                setTime(45);
+                setSize(2);
+                setProgress(0);
+                setShowHint(false);
+                setTimeElapsed(0);
+                const newScenario = await generateScenario();
+                setScenario(newScenario);
+            };
+
+            const instantComplete = () => {
+                setProgress(100);
+                setTimeElapsed(time * 60);
+                checkResult();
+            };
+
+            const remainingTime = time * 60 - timeElapsed;
+
+            // Render
+            return (
+                <div className="potato-game">
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+                        <h1>🥔 Potato Baking Game 🥔</h1>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <div className="coin-display">
+                                🥔 {spudCoins}
+                            </div>
+                            <button 
+                                className="potato-button"
+                                onClick={() => setShowStore(true)}
+                            >
+                                Store
+                            </button>
+                        </div>
+                    </div>
+
+                    {showStore && (
+                        <Store 
+                            onClose={() => setShowStore(false)}
+                            spudCoins={spudCoins}
+                            upgrades={upgrades}
+                            onPurchase={(itemId) => {
+                                setUpgrades(prev => ({...prev, [itemId]: true}));
+                                const item = STORE_ITEMS.find(i => i.id === itemId);
+                                if (item) {
+                                    setSpudCoins(prev => prev - item.cost);
+                                }
+                            }}
+                        />
+                    )}
+
+                    {scenario && gameState === 'setup' && (
+                        <div className="potato-alert">
+                            <h3>Your Potato Situation:</h3>
+                            <p>{scenario.description}</p>
+                            <div style={{ color: '#666', fontSize: '0.9em' }}>
+                                Category: {scenario.category}
+                            </div>
+                            <button
+                                className="potato-button"
+                                onClick={() => setShowHint(!showHint)}
+                            >
+                                {showHint ? 'Hide Hint' : 'Need a Hint?'}
+                            </button>
+                            {showHint && (
+                                <p style={{ marginTop: '10px', color: '#2196F3' }}>{scenario.hint}</p>
+                            )}
+                        </div>
+                    )}
+                    
+                    {gameState === 'setup' && (
+                        <div>
+                            <UtensilTray 
+                                usedUtensils={usedUtensils}
+                                setUsedUtensils={setUsedUtensils}
+                            />
+                            
+                            <div style={{ marginBottom: '20px' }}>
+                                <label>Oven Temperature: {temperature}°F</label>
+                                <input
+                                    type="range"
+                                    className="potato-slider"
+                                    value={temperature}
+                                    onChange={(e) => setTemperature(parseInt(e.target.value))}
+                                    min={200}
+                                    max={500}
+                                    step={25}
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '20px' }}>
+                                <label>Cooking Time: {time} minutes</label>
+                                <input
+                                    type="range"
+                                    className="potato-slider"
+                                    value={time}
+                                    onChange={(e) => setTime(parseInt(e.target.value))}
+                                    min={15}
+                                    max={90}
+                                    step={5}
+                                />
+                            </div>
+
+                            <div style={{ marginBottom: '20px' }}>
+                                <label>Potato Size: {size === 1 ? 'Small' : size === 2 ? 'Medium' : 'Large'}</label>
+                                <input
+                                    type="range"
+                                    className="potato-slider"
+                                    value={size}
+                                    onChange={(e) => setSize(parseInt(e.target.value))}
+                                    min={1}
+                                    max={3}
+                                    step={1}
+                                />
+                            </div>
+
+                            <div style={{
+                                position: 'relative',
+                                width: '100%',
+                                height: '200px',
+                                backgroundColor: '#f5f5f5',
+                                borderRadius: '8px',
+                                marginBottom: '20px',
+                                ...(upgrades.rgbLights && {
+                                    animation: 'rgbBorder 5s infinite'
+                                })
+                            }}>
+                                <div style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    top: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    width: `${size * 64}px`,
+                                    height: `${size * 48}px`,
+                                    backgroundColor: '#8B4513',
+                                    borderRadius: '50%',
+                                    transition: 'all 0.3s ease'
+                                }} />
+                            </div>
+
+                            <button
+                                className="potato-button"
+                                style={{ width: '100%' }}
+                                onClick={() => {
+                                    setGameState('cooking');
+                                    setProgress(0);
+                                    setTimeElapsed(0);
+                                    window.scrollTo({ 
+                                        top: 0, 
+                                        behavior: 'smooth' 
+                                    });
+                                }}
+                            >
+                                Start Baking!
+                            </button>
+                        </div>
+                    )}
+
+                    {gameState === 'cooking' && (
+                        <div>
+                            <div style={{ textAlign: 'center', fontSize: '24px', marginBottom: '20px' }}>
+                                Baking in progress... 🔥
+                            </div>
+
+                            <div className="potato-timer">
+                                {formatTime(remainingTime)}
+                            </div>
+
+                            <div className="potato-progress">
+                                <div
+                                    className="potato-progress-bar"
+                                    style={{ width: `${progress}%` }}
+                                />
+                            </div>
+                        </div>
+                    )}
+
+                    {gameState === 'done' && (
+                        <div style={{ textAlign: 'center' }}>
+                            <h2>{result}</h2>
+                            <div style={{ margin: '20px 0' }}>
+                                Your settings {getUtensilSummary(usedUtensils)}:
+                                <br />
+                                Temperature: {temperature}°F
+                                <br />
+                                Time: {time} minutes
+                                <br />
+                                Size: {size === 1 ? 'Small' : size === 2 ? 'Medium' : 'Large'}
+                                {false && scenario && (
+                                    <div>
+                                        <br />
+                                        <br />
+                                        <div style={{ color: '#666' }}>
+                                            Ideal Settings:
+                                            <br />
+                                            Temperature: {scenario.idealTemp}°F
+                                            <br />
+                                            Time: {scenario.idealTime} minutes
+                                            <br />
+                                            Size: {scenario.idealSize}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <button
+                                className="potato-button"
+                                onClick={resetGame}
+                            >
+                                Try Another Potato
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Social and Comments Section */}
+                    <div style={{ marginTop: '40px', borderTop: '2px solid #eee', paddingTop: '20px' }}>
+                        <a 
+                            href="https://t.me/+BtiLZzphQZg4NWMx" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            <button 
+                                className="potato-button"
+                                style={{
+                                    backgroundColor: '#0088cc',
+                                    width: '100%',
+                                    marginBottom: '20px'
+                                }}
+                            >
+                                Join our Telegram! 💬
+                            </button>
+                        </a>
+
+                        <div style={{
+                            backgroundColor: 'white',
+                            borderRadius: '8px',
+                            padding: '20px',
+                            marginTop: '20px'
+                        }}>
+                            <h3>Leave a Review</h3>
+                            <iframe 
+                                src="https://docs.google.com/forms/d/e/1FAIpQLSfL96Mrl2PQijFJpsnjaXltmuhXYxHwHl1NbvfEmmPTVRWJbg/viewform?embedded=true"
+                                width="100%" 
+                                height="500px" 
+                                frameBorder="0" 
+                                marginHeight="0" 
+                                marginWidth="0"
+                                style={{
+                                    backgroundColor: 'white',
+                                    borderRadius: '8px'
+                                }}
+                            >
+                                Loading...
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Initialize the React app
+        window.addEventListener('load', () => {
+            const root = ReactDOM.createRoot(document.getElementById('potato-game-root'));
+            root.render(<PotatoGame />);
+        });
+    </script>
+</body>
+</html>
