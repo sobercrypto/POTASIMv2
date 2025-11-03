@@ -1099,7 +1099,7 @@
         // Random Event Modal Component
         const RandomEventModal = ({ event, onChoice, temperature, time }) => {
             return (
-                <>
+                <React.Fragment>
                     <div className="potato-store-overlay" />
                     <div className="random-event-modal">
                         <h2 style={{ margin: '0 0 15px 0', fontSize: '24px' }}>{event.title}</h2>
@@ -1120,7 +1120,7 @@
                             ))}
                         </div>
                     </div>
-                </>
+                </React.Fragment>
             );
         };
 
