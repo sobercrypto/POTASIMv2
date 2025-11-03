@@ -333,6 +333,195 @@
             border-radius: 8px;
             font-style: italic;
         }
+
+        /* New Adventure Features Styles */
+        .achievement-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(255, 215, 0, 0.5);
+            animation: slideInRight 0.5s ease, pulse 2s infinite;
+            z-index: 2000;
+            max-width: 300px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .campaign-bar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-card {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.1));
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-card.locked {
+            opacity: 0.5;
+            border-color: #999;
+            background: rgba(200, 200, 200, 0.1);
+        }
+
+        .chapter-card:hover:not(.locked) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .companion-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .companion-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .companion-card.selected {
+            border-color: #4CAF50;
+            background: rgba(240, 249, 240, 0.9);
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .companion-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .companion-card:hover:not(.locked) {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .random-event-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 3000;
+            max-width: 500px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        @keyframes zoomIn {
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .event-choice-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 8px 0;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .event-choice-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
+        }
+
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .achievement-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #eee;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-card.unlocked {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.1));
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .achievement-card.locked {
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+
+        .stats-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab.active {
+            color: #4CAF50;
+            border-bottom-color: #4CAF50;
+        }
+
+        .nav-tab:hover {
+            color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -618,6 +807,237 @@
             }
         };
 
+        // CAMPAIGN CHAPTERS - The SPUDNIK Saga
+        const CAMPAIGN_CHAPTERS = [
+            {
+                id: 1,
+                name: "The Awakening",
+                description: "Your first encounter with interdimensional potato consciousness",
+                requiredBakes: 0,
+                reward: 50,
+                unlocked: true
+            },
+            {
+                id: 2,
+                name: "Thermal Apprentice",
+                description: "Master the basics of quantum tuber manipulation",
+                requiredBakes: 3,
+                reward: 100,
+                unlocked: false
+            },
+            {
+                id: 3,
+                name: "Dimensional Drift",
+                description: "Navigate the unstable potato multiverse",
+                requiredBakes: 7,
+                reward: 150,
+                unlocked: false
+            },
+            {
+                id: 4,
+                name: "The Starch Wars",
+                description: "Face the greatest potato challenges across spacetime",
+                requiredBakes: 12,
+                reward: 250,
+                unlocked: false
+            },
+            {
+                id: 5,
+                name: "SPUDNIK Ascension",
+                description: "Become one with the cosmic potato consciousness",
+                requiredBakes: 20,
+                reward: 500,
+                unlocked: false
+            }
+        ];
+
+        // POTATO COMPANIONS - Collectible friends!
+        const POTATO_COMPANIONS = [
+            {
+                id: 'russet',
+                name: 'Russet the Wise',
+                emoji: '🥔',
+                description: 'Ancient potato sage from the Old Tuber dimension',
+                bonus: '+10% SpudCoins',
+                cost: 150,
+                unlockRequirement: 'Complete Chapter 1'
+            },
+            {
+                id: 'fingerling',
+                name: 'Fingerling the Fast',
+                emoji: '🥕',
+                description: 'Speedy spud who mastered temporal acceleration',
+                bonus: '15% faster cooking',
+                cost: 200,
+                unlockRequirement: 'Complete Chapter 2'
+            },
+            {
+                id: 'sweet',
+                name: 'Sweet Potato Soul',
+                emoji: '🍠',
+                description: 'Mystical tuber with healing properties',
+                bonus: 'Second chance on failures',
+                cost: 300,
+                unlockRequirement: 'Complete Chapter 3'
+            },
+            {
+                id: 'purple',
+                name: 'Purple Majesty',
+                emoji: '🟣',
+                description: 'Royal potato from the Indigo Dimension',
+                bonus: '+5°F temperature precision',
+                cost: 400,
+                unlockRequirement: 'Complete Chapter 4'
+            },
+            {
+                id: 'cosmic',
+                name: 'Cosmic Spudnik Jr.',
+                emoji: '🌟',
+                description: 'SPUDNIK\'s apprentice from the future',
+                bonus: 'All bonuses combined!',
+                cost: 1000,
+                unlockRequirement: 'Complete Chapter 5'
+            }
+        ];
+
+        // ACHIEVEMENTS SYSTEM
+        const ACHIEVEMENTS = [
+            {
+                id: 'first_bake',
+                name: 'First Potato',
+                description: 'Complete your first interdimensional bake',
+                emoji: '🥔',
+                reward: 25,
+                condition: (stats) => stats.totalBakes >= 1
+            },
+            {
+                id: 'perfect_master',
+                name: 'Perfection Achieved',
+                description: 'Get a perfect score',
+                emoji: '⭐',
+                reward: 50,
+                condition: (stats) => stats.perfectBakes >= 1
+            },
+            {
+                id: 'streak_3',
+                name: 'On Fire!',
+                description: 'Get 3 perfect bakes in a row',
+                emoji: '🔥',
+                reward: 100,
+                condition: (stats) => stats.currentStreak >= 3
+            },
+            {
+                id: 'streak_5',
+                name: 'Unstoppable',
+                description: 'Get 5 perfect bakes in a row',
+                emoji: '💫',
+                reward: 200,
+                condition: (stats) => stats.currentStreak >= 5
+            },
+            {
+                id: 'explorer',
+                name: 'Dimensional Explorer',
+                description: 'Complete all 8 scenario categories',
+                emoji: '🌌',
+                reward: 300,
+                condition: (stats) => stats.categoriesCompleted >= 8
+            },
+            {
+                id: 'rich',
+                name: 'Spud Tycoon',
+                description: 'Accumulate 1000 SpudCoins',
+                emoji: '💰',
+                reward: 150,
+                condition: (stats) => stats.totalCoinsEarned >= 1000
+            },
+            {
+                id: 'collector',
+                name: 'Tool Master',
+                description: 'Use all 4 utensils in a single bake',
+                emoji: '🛠️',
+                reward: 75,
+                condition: (stats) => stats.allUtensilsUsed >= 1
+            },
+            {
+                id: 'veteran',
+                name: 'Potato Veteran',
+                description: 'Complete 25 bakes',
+                emoji: '🎖️',
+                reward: 250,
+                condition: (stats) => stats.totalBakes >= 25
+            },
+            {
+                id: 'speed_demon',
+                name: 'Speed Demon',
+                description: 'Complete a bake in under 20 minutes',
+                emoji: '⚡',
+                reward: 100,
+                condition: (stats) => stats.fastestBake > 0 && stats.fastestBake <= 20
+            },
+            {
+                id: 'patient',
+                name: 'Patience is a Virtue',
+                description: 'Complete a bake over 80 minutes',
+                emoji: '🧘',
+                reward: 100,
+                condition: (stats) => stats.slowestBake >= 80
+            }
+        ];
+
+        // RANDOM EVENTS during cooking
+        const RANDOM_EVENTS = [
+            {
+                id: 'portal',
+                title: '🌀 Portal Anomaly Detected!',
+                description: 'A dimensional rift is affecting your oven temperature!',
+                choices: [
+                    { text: 'Increase temperature by 50°F', effect: 'temp_up' },
+                    { text: 'Decrease temperature by 50°F', effect: 'temp_down' },
+                    { text: 'Maintain stability (do nothing)', effect: 'none' }
+                ]
+            },
+            {
+                id: 'time_warp',
+                title: '⏰ Time Anomaly!',
+                description: 'Time is flowing strangely in your kitchen!',
+                choices: [
+                    { text: 'Speed up time (reduce by 10 min)', effect: 'time_down' },
+                    { text: 'Slow down time (add 10 min)', effect: 'time_up' },
+                    { text: 'Let time flow naturally', effect: 'none' }
+                ]
+            },
+            {
+                id: 'spudnik_visit',
+                title: '🛸 SPUDNIK Appears!',
+                description: 'The cosmic potato entity offers mysterious guidance!',
+                choices: [
+                    { text: 'Accept cosmic wisdom (+hint)', effect: 'hint' },
+                    { text: 'Politely decline', effect: 'none' },
+                    { text: 'Ask for bonus coins', effect: 'coins' }
+                ]
+            },
+            {
+                id: 'quantum_fluctuation',
+                title: '⚛️ Quantum Fluctuation!',
+                description: 'Your potato exists in multiple states simultaneously!',
+                choices: [
+                    { text: 'Observe the potato (collapse waveform)', effect: 'reveal_progress' },
+                    { text: 'Let quantum magic happen', effect: 'random_bonus' },
+                    { text: 'Embrace the uncertainty', effect: 'none' }
+                ]
+            },
+            {
+                id: 'alien_inspection',
+                title: '👽 Alien Food Inspector!',
+                description: 'A curious alien is observing your cooking technique!',
+                choices: [
+                    { text: 'Show off your skills (+confidence)', effect: 'confidence' },
+                    { text: 'Get nervous (-temperature)', effect: 'nervous' },
+                    { text: 'Ignore them', effect: 'none' }
+                ]
+            }
+        ];
+
         // Store items configuration
         const STORE_ITEMS = [
             {
@@ -658,8 +1078,186 @@
             }
         ];
 
-        // Store Component
-        const Store = ({ onClose, spudCoins, upgrades, onPurchase }) => {
+        // Achievement Notification Component
+        const AchievementNotification = ({ achievement, onClose }) => {
+            React.useEffect(() => {
+                const timer = setTimeout(onClose, 4000);
+                return () => clearTimeout(timer);
+            }, []);
+
+            return (
+                <div className="achievement-notification">
+                    <h3 style={{ margin: '0 0 10px 0' }}>🎉 Achievement Unlocked!</h3>
+                    <div style={{ fontSize: '32px', margin: '10px 0' }}>{achievement.emoji}</div>
+                    <h4 style={{ margin: '5px 0' }}>{achievement.name}</h4>
+                    <p style={{ margin: '5px 0', fontSize: '14px' }}>{achievement.description}</p>
+                    <p style={{ fontWeight: 'bold', margin: '10px 0 0 0' }}>+{achievement.reward} SpudCoins! 🥔</p>
+                </div>
+            );
+        };
+
+        // Random Event Modal Component
+        const RandomEventModal = ({ event, onChoice, temperature, time }) => {
+            return (
+                <React.Fragment>
+                    <div className="potato-store-overlay" />
+                    <div className="random-event-modal">
+                        <h2 style={{ margin: '0 0 15px 0', fontSize: '24px' }}>{event.title}</h2>
+                        <p style={{ margin: '0 0 20px 0', fontSize: '16px' }}>{event.description}</p>
+                        <div style={{ marginBottom: '15px', padding: '10px', background: 'rgba(255,255,255,0.1)', borderRadius: '8px' }}>
+                            <div>Current Temp: {temperature}°F</div>
+                            <div>Current Time: {time} min</div>
+                        </div>
+                        <div>
+                            {event.choices.map((choice, idx) => (
+                                <button
+                                    key={idx}
+                                    className="event-choice-btn"
+                                    onClick={() => onChoice(choice.effect)}
+                                >
+                                    {choice.text}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </React.Fragment>
+            );
+        };
+
+        // Campaign Progress Component
+        const CampaignView = ({ chapters, stats }) => {
+            return (
+                <div>
+                    <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>🗺️ The SPUDNIK Saga</h2>
+                    <div className="stats-panel">
+                        <h3>Your Progress</h3>
+                        <div className="stat-item">
+                            <span>Total Bakes:</span>
+                            <strong>{stats.totalBakes}</strong>
+                        </div>
+                        <div className="stat-item">
+                            <span>Current Chapter:</span>
+                            <strong>Chapter {chapters.filter(c => c.unlocked).length}</strong>
+                        </div>
+                    </div>
+                    {chapters.map(chapter => (
+                        <div key={chapter.id} className={`chapter-card ${!chapter.unlocked ? 'locked' : ''}`}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <div>
+                                    <h3 style={{ margin: '0 0 8px 0' }}>
+                                        Chapter {chapter.id}: {chapter.name}
+                                        {chapter.unlocked && chapter.completed && ' ✅'}
+                                    </h3>
+                                    <p style={{ margin: '0 0 10px 0', fontSize: '14px', color: '#666' }}>
+                                        {chapter.description}
+                                    </p>
+                                    {!chapter.unlocked && (
+                                        <p style={{ margin: 0, fontSize: '14px', fontStyle: 'italic' }}>
+                                            🔒 Requires {chapter.requiredBakes} successful bakes
+                                        </p>
+                                    )}
+                                </div>
+                                <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4CAF50' }}>
+                                    +{chapter.reward} 🥔
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            );
+        };
+
+        // Achievements View Component
+        const AchievementsView = ({ achievements, stats }) => {
+            return (
+                <div>
+                    <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>🏆 Achievements</h2>
+                    <div className="achievement-grid">
+                        {achievements.map(achievement => {
+                            const unlocked = achievement.unlocked;
+                            return (
+                                <div key={achievement.id} className={`achievement-card ${unlocked ? 'unlocked' : 'locked'}`}>
+                                    <div style={{ fontSize: '48px', margin: '10px 0' }}>{achievement.emoji}</div>
+                                    <h4 style={{ margin: '10px 0 5px 0' }}>{achievement.name}</h4>
+                                    <p style={{ margin: '5px 0', fontSize: '13px', color: '#666' }}>
+                                        {achievement.description}
+                                    </p>
+                                    <p style={{ margin: '10px 0 0 0', fontWeight: 'bold', color: '#FFD700' }}>
+                                        {unlocked ? '✓ Unlocked' : '🔒 Locked'}
+                                    </p>
+                                    {unlocked && (
+                                        <p style={{ margin: '5px 0 0 0', fontSize: '12px' }}>
+                                            Reward: +{achievement.reward} 🥔
+                                        </p>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        // Companion Selector Component
+        const CompanionSelector = ({ companions, selectedCompanion, onSelect, spudCoins, onPurchase, unlockedChapters }) => {
+            return (
+                <div>
+                    <h3>🥔 Select Your Companion:</h3>
+                    <div className="companion-selector">
+                        {companions.map(companion => {
+                            const isLocked = !companion.owned;
+                            const canAfford = spudCoins >= companion.cost;
+                            const isSelected = selectedCompanion === companion.id;
+
+                            return (
+                                <div
+                                    key={companion.id}
+                                    className={`companion-card ${isSelected ? 'selected' : ''} ${isLocked && !canAfford ? 'locked' : ''}`}
+                                    onClick={() => {
+                                        if (companion.owned) {
+                                            onSelect(companion.id);
+                                        } else if (canAfford) {
+                                            onPurchase(companion.id);
+                                        }
+                                    }}
+                                >
+                                    <div style={{ fontSize: '48px', marginBottom: '10px' }}>{companion.emoji}</div>
+                                    <h4 style={{ margin: '5px 0', fontSize: '14px' }}>{companion.name}</h4>
+                                    <p style={{ margin: '5px 0', fontSize: '11px', color: '#666' }}>{companion.description}</p>
+                                    <p style={{ margin: '8px 0', fontSize: '12px', fontWeight: 'bold', color: '#4CAF50' }}>
+                                        {companion.bonus}
+                                    </p>
+                                    {!companion.owned && (
+                                        <button
+                                            className="potato-button"
+                                            style={{
+                                                padding: '6px 12px',
+                                                fontSize: '12px',
+                                                marginTop: '8px',
+                                                background: canAfford ? 'linear-gradient(45deg, #4CAF50, #45a049)' : '#999'
+                                            }}
+                                            disabled={!canAfford}
+                                        >
+                                            {canAfford ? `Buy: ${companion.cost} 🥔` : `🔒 ${companion.cost} 🥔`}
+                                        </button>
+                                    )}
+                                    {companion.owned && isSelected && (
+                                        <div style={{ marginTop: '8px', color: '#4CAF50', fontWeight: 'bold' }}>
+                                            ✓ Active
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            );
+        };
+
+        // Store Component (Enhanced with Companions tab)
+        const Store = ({ onClose, spudCoins, upgrades, companions, selectedCompanion, onPurchaseUpgrade, onPurchaseCompanion, onSelectCompanion, unlockedChapters }) => {
+            const [activeTab, setActiveTab] = React.useState('upgrades');
+
             const items = STORE_ITEMS.map(item => ({
                 ...item,
                 owned: upgrades[item.id]
@@ -667,7 +1265,7 @@
 
             const handlePurchase = (item) => {
                 if (spudCoins >= item.cost && !item.owned) {
-                    onPurchase(item.id);
+                    onPurchaseUpgrade(item.id);
                 }
             };
 
@@ -677,7 +1275,7 @@
                         <div className="store-header">
                             <h2>🥔 SPUDNIK's Cosmic Store 🛸</h2>
                             <div className="coin-display">🥔 {spudCoins} cosmic coins</div>
-                            <button 
+                            <button
                                 className="potato-button"
                                 onClick={onClose}
                                 style={{ position: 'absolute', right: '15px', top: '15px' }}
@@ -685,30 +1283,61 @@
                                 Close Portal
                             </button>
                         </div>
-                        <div className="store-items">
-                            {items.map(item => (
-                                <div key={item.id} className="store-item">
-                                    <div className="item-info">
-                                        <h3>{item.name}</h3>
-                                        <p>{item.description}</p>
-                                        <div className="item-cost">
-                                            Cost: 🥔 {item.cost} cosmic coins
-                                        </div>
-                                    </div>
-                                    <button
-                                        className="potato-button"
-                                        onClick={() => handlePurchase(item)}
-                                        disabled={item.owned || spudCoins < item.cost}
-                                        style={{
-                                            backgroundColor: item.owned ? '#666' : 
-                                                           spudCoins < item.cost ? '#999' : '#4CAF50'
-                                        }}
-                                    >
-                                        {item.owned ? 'ACQUIRED' : spudCoins < item.cost ? 'Need more cosmic energy' : 'ACQUIRE'}
-                                    </button>
-                                </div>
-                            ))}
+
+                        <div className="nav-tabs">
+                            <button
+                                className={`nav-tab ${activeTab === 'upgrades' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('upgrades')}
+                            >
+                                🔧 Upgrades
+                            </button>
+                            <button
+                                className={`nav-tab ${activeTab === 'companions' ? 'active' : ''}`}
+                                onClick={() => setActiveTab('companions')}
+                            >
+                                🥔 Companions
+                            </button>
                         </div>
+
+                        {activeTab === 'upgrades' && (
+                            <div className="store-items">
+                                {items.map(item => (
+                                    <div key={item.id} className="store-item">
+                                        <div className="item-info">
+                                            <h3>{item.name}</h3>
+                                            <p>{item.description}</p>
+                                            <div className="item-cost">
+                                                Cost: 🥔 {item.cost} cosmic coins
+                                            </div>
+                                        </div>
+                                        <button
+                                            className="potato-button"
+                                            onClick={() => handlePurchase(item)}
+                                            disabled={item.owned || spudCoins < item.cost}
+                                            style={{
+                                                backgroundColor: item.owned ? '#666' :
+                                                               spudCoins < item.cost ? '#999' : '#4CAF50'
+                                            }}
+                                        >
+                                            {item.owned ? 'ACQUIRED' : spudCoins < item.cost ? 'Need more cosmic energy' : 'ACQUIRE'}
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {activeTab === 'companions' && (
+                            <div style={{ padding: '20px' }}>
+                                <CompanionSelector
+                                    companions={companions}
+                                    selectedCompanion={selectedCompanion}
+                                    onSelect={onSelectCompanion}
+                                    spudCoins={spudCoins}
+                                    onPurchase={onPurchaseCompanion}
+                                    unlockedChapters={unlockedChapters}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             );
@@ -792,11 +1421,12 @@
             );
         };
 
-        // Main Game Component (THE GRAND SPUDNIK EXPERIENCE)
+        // Main Game Component (THE GRAND SPUDNIK EXPERIENCE) - Now with ADVENTURE!
         const PotatoGame = () => {
             // Enhanced state with cosmic energy
             const [spudCoins, setSpudCoins] = React.useState(42); // Start with cosmic number
             const [showStore, setShowStore] = React.useState(false);
+            const [currentView, setCurrentView] = React.useState('game'); // game, campaign, achievements
             const [upgrades, setUpgrades] = React.useState({
                 rgbLights: false,
                 precisionControl: false,
@@ -821,7 +1451,105 @@
             const [timeElapsed, setTimeElapsed] = React.useState(0);
             const [scenario, setScenario] = React.useState(null);
 
-            // Enhanced coin award system with SPUDNIK bonuses
+            // NEW ADVENTURE STATES
+            const [stats, setStats] = React.useState({
+                totalBakes: 0,
+                perfectBakes: 0,
+                currentStreak: 0,
+                bestStreak: 0,
+                categoriesCompleted: 0,
+                categorySet: new Set(),
+                totalCoinsEarned: 0,
+                allUtensilsUsed: 0,
+                fastestBake: 999,
+                slowestBake: 0
+            });
+            const [chapters, setChapters] = React.useState(CAMPAIGN_CHAPTERS.map(c => ({...c})));
+            const [achievements, setAchievements] = React.useState(
+                ACHIEVEMENTS.map(a => ({...a, unlocked: false}))
+            );
+            const [companions, setCompanions] = React.useState(
+                POTATO_COMPANIONS.map(c => ({...c, owned: false}))
+            );
+            const [selectedCompanion, setSelectedCompanion] = React.useState(null);
+            const [achievementNotification, setAchievementNotification] = React.useState(null);
+            const [randomEvent, setRandomEvent] = React.useState(null);
+            const [eventTriggered, setEventTriggered] = React.useState(false);
+
+            // Check and unlock achievements
+            const checkAchievements = (newStats) => {
+                const newlyUnlocked = [];
+                setAchievements(prev => prev.map(achievement => {
+                    if (!achievement.unlocked && achievement.condition(newStats)) {
+                        newlyUnlocked.push(achievement);
+                        return {...achievement, unlocked: true};
+                    }
+                    return achievement;
+                }));
+
+                // Award coins and show notifications for newly unlocked achievements
+                if (newlyUnlocked.length > 0) {
+                    let totalReward = 0;
+                    newlyUnlocked.forEach(achievement => {
+                        totalReward += achievement.reward;
+                        setAchievementNotification(achievement);
+                    });
+                    setSpudCoins(prev => prev + totalReward);
+                }
+            };
+
+            // Update chapter progress
+            const updateChapters = (totalBakes) => {
+                setChapters(prev => prev.map(chapter => {
+                    if (!chapter.unlocked && totalBakes >= chapter.requiredBakes) {
+                        setSpudCoins(coins => coins + chapter.reward);
+                        return {...chapter, unlocked: true, completed: true};
+                    }
+                    return chapter;
+                }));
+            };
+
+            // Handle random event during cooking
+            const triggerRandomEvent = () => {
+                if (Math.random() < 0.3 && !eventTriggered) { // 30% chance
+                    const event = RANDOM_EVENTS[Math.floor(Math.random() * RANDOM_EVENTS.length)];
+                    setRandomEvent(event);
+                    setEventTriggered(true);
+                }
+            };
+
+            const handleEventChoice = (effect) => {
+                switch (effect) {
+                    case 'temp_up':
+                        setTemperature(prev => Math.min(500, prev + 50));
+                        break;
+                    case 'temp_down':
+                        setTemperature(prev => Math.max(200, prev - 50));
+                        break;
+                    case 'time_up':
+                        setTime(prev => Math.min(90, prev + 10));
+                        break;
+                    case 'time_down':
+                        setTime(prev => Math.max(15, prev - 10));
+                        break;
+                    case 'coins':
+                        setSpudCoins(prev => prev + 50);
+                        break;
+                    case 'hint':
+                        setShowHint(true);
+                        break;
+                    case 'confidence':
+                        // Slight temp boost
+                        setTemperature(prev => prev + 10);
+                        break;
+                    case 'nervous':
+                        setTemperature(prev => Math.max(200, prev - 25));
+                        break;
+                }
+                setRandomEvent(null);
+            };
+
+            // Enhanced coin award system with SPUDNIK bonuses and companion effects
             const awardCoins = (score) => {
                 let coins = Math.floor(score / 1.8); // More generous base coins
 
@@ -851,7 +1579,17 @@
                 if (upgrades.cosmicResonance) coins *= 1.3;
                 if (upgrades.potatoVision) coins += 25;
 
-                setSpudCoins(prev => prev + Math.floor(coins));
+                // Companion bonuses
+                if (selectedCompanion === 'russet') coins *= 1.1; // +10% coins
+                if (selectedCompanion === 'cosmic') coins *= 1.25; // All bonuses!
+
+                const finalCoins = Math.floor(coins);
+                setSpudCoins(prev => prev + finalCoins);
+
+                // Track total coins earned
+                setStats(prev => ({...prev, totalCoinsEarned: prev.totalCoinsEarned + finalCoins}));
+
+                return finalCoins;
             };
             
             // Initial scenario fetch with SPUDNIK energy
@@ -863,14 +1601,22 @@
                 fetchScenario();
             }, []);
 
-            // Enhanced timer with cosmic effects
+            // Enhanced timer with cosmic effects and RANDOM EVENTS!
             React.useEffect(() => {
                 let intervalId;
+                let eventTimer;
                 if (gameState === 'cooking') {
                     const startTime = Date.now();
                     const preheatBonus = upgrades.quickPreheat ? 0.4 : 0;
-                    const effectiveTime = time * (1 - preheatBonus);
-                    
+                    const companionBonus = selectedCompanion === 'fingerling' || selectedCompanion === 'cosmic' ? 0.15 : 0;
+                    const effectiveTime = time * (1 - preheatBonus - companionBonus);
+
+                    // Schedule a random event to possibly trigger mid-cook
+                    const eventTriggerTime = (Math.random() * 0.6 + 0.2) * effectiveTime * 60 * 1000; // Between 20-80% progress
+                    eventTimer = setTimeout(() => {
+                        triggerRandomEvent();
+                    }, eventTriggerTime);
+
                     intervalId = setInterval(() => {
                         const elapsed = (Date.now() - startTime) / 1000;
                         const totalTime = effectiveTime * 60;
@@ -886,8 +1632,11 @@
                         }
                     }, 42); // SPUDNIK update frequency
                 }
-                return () => clearInterval(intervalId);
-            }, [gameState, time, upgrades.quickPreheat]);
+                return () => {
+                    clearInterval(intervalId);
+                    clearTimeout(eventTimer);
+                };
+            }, [gameState, time, upgrades.quickPreheat, selectedCompanion]);
 
             // Cosmic utility functions
             const formatTime = (timeInSeconds) => {
@@ -900,9 +1649,36 @@
             const checkResult = () => {
                 setGameState('done');
                 if (!scenario) return;
+
                 const outcome = determineOutcome(temperature, time, size, scenario);
                 setResult(outcome.result);
-                awardCoins(outcome.score);
+                const coinsEarned = awardCoins(outcome.score);
+
+                // Update stats
+                const isPerfect = outcome.score >= 92;
+                const allUtensils = Object.values(usedUtensils).every(Boolean);
+
+                const newStats = {
+                    ...stats,
+                    totalBakes: stats.totalBakes + 1,
+                    perfectBakes: stats.perfectBakes + (isPerfect ? 1 : 0),
+                    currentStreak: isPerfect ? stats.currentStreak + 1 : 0,
+                    bestStreak: Math.max(stats.bestStreak, isPerfect ? stats.currentStreak + 1 : stats.currentStreak),
+                    categorySet: new Set([...stats.categorySet, scenario.category]),
+                    categoriesCompleted: new Set([...stats.categorySet, scenario.category]).size,
+                    allUtensilsUsed: stats.allUtensilsUsed + (allUtensils ? 1 : 0),
+                    fastestBake: Math.min(stats.fastestBake, time),
+                    slowestBake: Math.max(stats.slowestBake, time),
+                    totalCoinsEarned: stats.totalCoinsEarned + coinsEarned
+                };
+
+                setStats(newStats);
+
+                // Check for achievements
+                checkAchievements(newStats);
+
+                // Update chapter progress
+                updateChapters(newStats.totalBakes);
             };
 
             const getUtensilSummary = (usedUtensils) => {
@@ -929,22 +1705,40 @@
                 setProgress(0);
                 setShowHint(false);
                 setTimeElapsed(0);
+                setEventTriggered(false);
+                setRandomEvent(null);
                 const newScenario = await generateScenario();
                 setScenario(newScenario);
             };
 
+            // Companion management
+            const handleCompanionPurchase = (companionId) => {
+                const companion = POTATO_COMPANIONS.find(c => c.id === companionId);
+                if (companion && spudCoins >= companion.cost) {
+                    setCompanions(prev => prev.map(c =>
+                        c.id === companionId ? {...c, owned: true} : c
+                    ));
+                    setSpudCoins(prev => prev - companion.cost);
+                    setSelectedCompanion(companionId);
+                }
+            };
+
+            const handleCompanionSelect = (companionId) => {
+                setSelectedCompanion(companionId);
+            };
+
             const remainingTime = time * 60 - timeElapsed;
 
-            // THE GRAND RENDER OF SPUDNIK CONSCIOUSNESS
+            // THE GRAND RENDER OF SPUDNIK CONSCIOUSNESS - Now with ADVENTURE!
             return (
                 <div className="potato-game">
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                        <h1 className="potato-title">🥔 Baked Potato Simulator 🥔</h1>
+                        <h1 className="potato-title">🥔 SPUDNIK's Potato Adventure 🥔</h1>
                         <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                             <div className="coin-display">
                                 🥔 {spudCoins} coins
                             </div>
-                            <button 
+                            <button
                                 className="potato-button"
                                 onClick={() => setShowStore(true)}
                             >
@@ -953,20 +1747,79 @@
                         </div>
                     </div>
 
+                    {/* Navigation Tabs */}
+                    <div className="nav-tabs">
+                        <button
+                            className={`nav-tab ${currentView === 'game' ? 'active' : ''}`}
+                            onClick={() => setCurrentView('game')}
+                        >
+                            🎮 Play Game
+                        </button>
+                        <button
+                            className={`nav-tab ${currentView === 'campaign' ? 'active' : ''}`}
+                            onClick={() => setCurrentView('campaign')}
+                        >
+                            🗺️ Campaign
+                        </button>
+                        <button
+                            className={`nav-tab ${currentView === 'achievements' ? 'active' : ''}`}
+                            onClick={() => setCurrentView('achievements')}
+                        >
+                            🏆 Achievements
+                        </button>
+                    </div>
+
+                    {/* Achievement Notification */}
+                    {achievementNotification && (
+                        <AchievementNotification
+                            achievement={achievementNotification}
+                            onClose={() => setAchievementNotification(null)}
+                        />
+                    )}
+
+                    {/* Random Event Modal */}
+                    {randomEvent && (
+                        <RandomEventModal
+                            event={randomEvent}
+                            onChoice={handleEventChoice}
+                            temperature={temperature}
+                            time={time}
+                        />
+                    )}
+
                     {showStore && (
-                        <Store 
+                        <Store
                             onClose={() => setShowStore(false)}
                             spudCoins={spudCoins}
                             upgrades={upgrades}
-                            onPurchase={(itemId) => {
+                            companions={companions}
+                            selectedCompanion={selectedCompanion}
+                            onPurchaseUpgrade={(itemId) => {
                                 setUpgrades(prev => ({...prev, [itemId]: true}));
                                 const item = STORE_ITEMS.find(i => i.id === itemId);
                                 if (item) {
                                     setSpudCoins(prev => prev - item.cost);
                                 }
                             }}
+                            onPurchaseCompanion={handleCompanionPurchase}
+                            onSelectCompanion={handleCompanionSelect}
+                            unlockedChapters={chapters.filter(c => c.unlocked).length}
                         />
                     )}
+
+                    {/* Campaign View */}
+                    {currentView === 'campaign' && (
+                        <CampaignView chapters={chapters} stats={stats} />
+                    )}
+
+                    {/* Achievements View */}
+                    {currentView === 'achievements' && (
+                        <AchievementsView achievements={achievements} stats={stats} />
+                    )}
+
+                    {/* Main Game View */}
+                    {currentView === 'game' && (
+                        <div>
 
                     {scenario && gameState === 'setup' && (
                         <div className="potato-alert">
@@ -1200,6 +2053,8 @@
                                 🌌 Venture Into Another Dimension! 🌌
                             </button>
                         </div>
+                    )}
+                    </div>
                     )}
 
                     {/* Enhanced Social Section with SPUDNIK flair */}

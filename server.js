@@ -26,7 +26,8 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.static('public'));
 
-app.post('/proxy', async (req, res) => {
+// API proxy handler
+const handleProxy = async (req, res) => {
     try {
         console.log('Received request body:', req.body); // Log incoming request
 
@@ -49,7 +50,7 @@ app.post('/proxy', async (req, res) => {
         if (!response.ok) {
             const error = await response.text();
             console.error('Anthropic API Error:', error);
-            return res.status(response.status).json({ 
+            return res.status(response.status).json({
                 error: error,
                 status: response.status,
                 statusText: response.statusText
@@ -61,13 +62,17 @@ app.post('/proxy', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Server error:', error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: 'Internal server error',
             details: error.message,
             stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
         });
     }
-});
+};
+
+// Support both /proxy and /api/proxy routes
+app.post('/proxy', handleProxy);
+app.post('/api/proxy', handleProxy);
 
 
 // Serve index.html for all other routes
