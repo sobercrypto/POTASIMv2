@@ -1,3 +1,9 @@
+const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
+const anthropicModel =
+  process.env.CLAUDE_MODEL_VERSION || process.env.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20240224';
+const anthropicVersion =
+  process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
+
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,14 +20,21 @@ export default async function handler(req, res) {
   }
 
   try {
+    if (!anthropicApiKey) {
+      return res.status(500).json({ error: 'Anthropic API key is not configured on the server.' });
+    }
+
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
+        'x-api-key': anthropicApiKey,
+        'anthropic-version': anthropicVersion
       },
-      body: JSON.stringify(req.body)
+      body: JSON.stringify({
+        ...req.body,
+        model: anthropicModel
+      })
     });
 
     const data = await response.json();

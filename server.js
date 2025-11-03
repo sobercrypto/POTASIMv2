@@ -26,22 +26,34 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.static('public'));
 
+const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
+const anthropicModel =
+    process.env.CLAUDE_MODEL_VERSION || process.env.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20240224';
+const anthropicVersion =
+    process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
+
 // API proxy handler
 const handleProxy = async (req, res) => {
     try {
         console.log('Received request body:', req.body); // Log incoming request
 
+        if (!anthropicApiKey) {
+            console.error('Missing Anthropic/Claude API key environment variable.');
+            return res.status(500).json({
+                error: 'Anthropic API key is not configured on the server.'
+            });
+        }
+
         const response = await fetch('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': process.env.ANTHROPIC_API_KEY,
-                'anthropic-version': '2023-06-01'
+                'x-api-key': anthropicApiKey,
+                'anthropic-version': anthropicVersion
             },
             body: JSON.stringify({
-                model: req.body.model,
-                max_tokens: req.body.max_tokens,
-                messages: req.body.messages
+                ...req.body,
+                model: anthropicModel
             })
         });
 
