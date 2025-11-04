@@ -732,46 +732,54 @@
                 const randomElement = randomElements[Math.floor(Math.random() * randomElements.length)];
 
                 console.log('Making API request...');
-                    fetch('/api/proxy', {
+  
+                  try {
+                    const response = await fetch('/api/proxy', { // Added 'await' here!
                       method: 'POST',
                       headers: {
-                          'Content-Type': 'application/json',
+                        'Content-Type': 'application/json',
                       },
                       body: JSON.stringify({
                         model: "claude-3-sonnet-20240229",
                         max_tokens: 1024,
                         messages: [{
-                            role: "user",
-                            content: `${randomPrompt} ${randomElement}. Use this exact JSON format:
-                            {
-                                "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Make it dramatic and absurd while keeping it grounded in the premise that this is just about baking a potato. Mix everyday situations with high stakes consequences.]",
-                                "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap', 'Workplace', 'Alien Encounter']",
-                                "idealTemp": [temperature between 350-450],
-                                "idealTime": [cooking time between 20-90 minutes],
-                                "idealSize": [1 for small, 2 for medium, 3 for large],
-                                "hint": "[a clever cooking tip that relates to the scenario's story]",
-                                "outcomes": {
-                                    "perfect": "[enthusiastic response from the characters when the potato is perfect]",
-                                    "good": "[positive but not perfect reaction]",
-                                    "okay": "[humorous slightly disappointed reaction]",
-                                    "burnt": "[funny disaster reaction]",
-                                    "raw": "[comedic failure reaction]"
-                                }
-                            }`
+                          role: "user",
+                          content: `${randomPrompt} ${randomElement}. Use this exact JSON format:
+                          {
+                            "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Make it dramatic and absurd while keeping it grounded in the premise that this is just about baking a potato. Mix everyday situations with high stakes consequences.]",
+                            "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap', 'Workplace', 'Alien Encounter']",
+                            "idealTemp": [temperature between 350-450],
+                            "idealTime": [cooking time between 20-90 minutes],
+                            "idealSize": [1 for small, 2 for medium, 3 for large],
+                            "hint": "[a clever cooking tip that relates to the scenario's story]",
+                            "outcomes": {
+                              "perfect": "[enthusiastic response from the characters when the potato is perfect]",
+                              "good": "[positive but not perfect reaction]",
+                              "okay": "[humorous slightly disappointed reaction]",
+                              "burnt": "[funny disaster reaction]",
+                              "raw": "[comedic failure reaction]"
+                            }
+                          }`
                         }]
-                    })
-                });
-        
-                console.log('Response status:', response.status);
-                console.log('Response ok:', response.ok);
-        
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error('API Error Response:', errorText);
-                    throw new Error(`API request failed with status ${response.status}`);
+                      })
+                    });
+                    
+                    console.log('Response status:', response.status);
+                    console.log('Response ok:', response.ok);
+                    
+                    if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    return data;
+                    
+                  } catch (error) {
+                    console.error('Error generating scenario:', error);
+                    throw error;
+                  }
                 }
         
-                const data = await response.json();
                 console.log('Full API Response:', data);
                 
                 if (!data.content || !data.content[0] || !data.content[0].text) {
