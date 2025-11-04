@@ -705,115 +705,106 @@
         };
 
         // Enhanced scenario generation using Claude API with varied prompts
-        const generateScenario = async () => {
-            try {
-                // Different prompt variations to add variety
-                const promptVariations = [
-                    "Generate a quirky FAMILY DRAMA scenario for a potato baking game where family dynamics and relationships are at stake. Include both the scenario and potential outcomes.",
-                    "Create a FOOD COMPETITION scenario for a potato baking game with high stakes, dramatic judges, or cooking show elements. Include both the scenario and potential outcomes.",
-                    "Design a HISTORICAL scenario for a potato baking game involving time travel, period-specific characters, or historical figures. Include both the scenario and potential outcomes.",
-                    "Invent a SCIENTIFIC scenario for a potato baking game involving experiments, research, space missions, or laboratory settings. Include both the scenario and potential outcomes.",
-                    "Make a SOCIAL EVENT scenario for a potato baking game with parties, dates, gatherings, or important social situations. Include both the scenario and potential outcomes.",
-                    "Create a MAGICAL MISHAP scenario for a potato baking game with supernatural elements, curses, ghosts, or mystical beings. Include both the scenario and potential outcomes.",
-                    "Generate a WORKPLACE scenario for a potato baking game set in a corporate, office, or professional environment with career stakes. Include both the scenario and potential outcomes.",
-                    "Design an ALIEN ENCOUNTER scenario for a potato baking game involving extraterrestrials, first contact, or intergalactic situations. Include both the scenario and potential outcomes."
-                ];
-
-                // Random elements to add to prompts for extra variety
-                const randomElements = [
-                    "involving time pressure", "with unexpected characters", "featuring talking objects", 
-                    "in an unusual location", "with a mystery element", "during a crisis",
-                    "with a cooking competition twist", "featuring supernatural elements", "in a futuristic setting",
-                    "with family secrets", "involving a bet or wager", "with professional stakes",
-                    "featuring celebrity appearances", "with a romantic subplot", "involving ancient recipes"
-                ];
-
-                const randomPrompt = promptVariations[Math.floor(Math.random() * promptVariations.length)];
-                const randomElement = randomElements[Math.floor(Math.random() * randomElements.length)];
-
-                console.log('Making API request...');
-  
-                  try {
-                    const response = await fetch('/api/proxy', { // Added 'await' here!
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        model: "claude-3-sonnet-20240229",
-                        max_tokens: 1024,
-                        messages: [{
-                          role: "user",
-                          content: `${randomPrompt} ${randomElement}. Use this exact JSON format:
-                          {
-                            "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Make it dramatic and absurd while keeping it grounded in the premise that this is just about baking a potato. Mix everyday situations with high stakes consequences.]",
-                            "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap', 'Workplace', 'Alien Encounter']",
-                            "idealTemp": [temperature between 350-450],
-                            "idealTime": [cooking time between 20-90 minutes],
-                            "idealSize": [1 for small, 2 for medium, 3 for large],
-                            "hint": "[a clever cooking tip that relates to the scenario's story]",
-                            "outcomes": {
-                              "perfect": "[enthusiastic response from the characters when the potato is perfect]",
-                              "good": "[positive but not perfect reaction]",
-                              "okay": "[humorous slightly disappointed reaction]",
-                              "burnt": "[funny disaster reaction]",
-                              "raw": "[comedic failure reaction]"
-                            }
-                          }`
-                        }]
-                      })
+            const generateScenario = async () => {
+                try {
+                    // Different prompt variations to add variety
+                    const promptVariations = [
+                        "Generate a quirky FAMILY DRAMA scenario for a potato baking game where family dynamics and relationships are at stake. Include both the scenario and potential outcomes.",
+                        "Create a FOOD COMPETITION scenario for a potato baking game with high stakes, dramatic judges, or cooking show elements. Include both the scenario and potential outcomes.",
+                        "Design a HISTORICAL scenario for a potato baking game involving time travel, period-specific characters, or historical figures. Include both the scenario and potential outcomes.",
+                        "Invent a SCIENTIFIC scenario for a potato baking game involving experiments, research, space missions, or laboratory settings. Include both the scenario and potential outcomes.",
+                        "Make a SOCIAL EVENT scenario for a potato baking game with parties, dates, gatherings, or important social situations. Include both the scenario and potential outcomes.",
+                        "Create a MAGICAL MISHAP scenario for a potato baking game with supernatural elements, curses, ghosts, or mystical beings. Include both the scenario and potential outcomes.",
+                        "Generate a WORKPLACE scenario for a potato baking game set in a corporate, office, or professional environment with career stakes. Include both the scenario and potential outcomes.",
+                        "Design an ALIEN ENCOUNTER scenario for a potato baking game involving extraterrestrials, first contact, or intergalactic situations. Include both the scenario and potential outcomes."
+                    ];
+            
+                    // Random elements to add to prompts for extra variety
+                    const randomElements = [
+                        "involving time pressure", "with unexpected characters", "featuring talking objects", 
+                        "in an unusual location", "with a mystery element", "during a crisis",
+                        "with a cooking competition twist", "featuring supernatural elements", "in a futuristic setting",
+                        "with family secrets", "involving a bet or wager", "with professional stakes",
+                        "featuring celebrity appearances", "with a romantic subplot", "involving ancient recipes"
+                    ];
+            
+                    const randomPrompt = promptVariations[Math.floor(Math.random() * promptVariations.length)];
+                    const randomElement = randomElements[Math.floor(Math.random() * randomElements.length)];
+            
+                    console.log('Making API request...');
+            
+                    const response = await fetch('/api/proxy', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            model: "claude-3-sonnet-20240229",
+                            max_tokens: 1024,
+                            messages: [{
+                                role: "user",
+                                content: `${randomPrompt} ${randomElement}. Use this exact JSON format:
+                                {
+                                    "description": "[2-3 sentences describing an amusing and overly specific situation involving potato baking. Make it dramatic and absurd while keeping it grounded in the premise that this is just about baking a potato. Mix everyday situations with high stakes consequences.]",
+                                    "category": "[one of: 'Family Drama', 'Food Competition', 'Historical', 'Scientific', 'Social Event', 'Magical Mishap', 'Workplace', 'Alien Encounter']",
+                                    "idealTemp": [temperature between 350-450],
+                                    "idealTime": [cooking time between 20-90 minutes],
+                                    "idealSize": [1 for small, 2 for medium, 3 for large],
+                                    "hint": "[a clever cooking tip that relates to the scenario's story]",
+                                    "outcomes": {
+                                        "perfect": "[enthusiastic response from the characters when the potato is perfect]",
+                                        "good": "[positive but not perfect reaction]",
+                                        "okay": "[humorous slightly disappointed reaction]",
+                                        "burnt": "[funny disaster reaction]",
+                                        "raw": "[comedic failure reaction]"
+                                    }
+                                }`
+                            }]
+                        })
                     });
                     
                     console.log('Response status:', response.status);
                     console.log('Response ok:', response.ok);
                     
                     if (!response.ok) {
-                      throw new Error(`HTTP error! status: ${response.status}`);
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     
                     const data = await response.json();
-                    return data;
+                    console.log('Full API Response:', data);
                     
-                  } catch (error) {
-                    console.error('Error generating scenario:', error);
-                    throw error;
-                  }
-                }
-        
-                console.log('Full API Response:', data);
-                
-                if (!data.content || !data.content[0] || !data.content[0].text) {
-                    console.error('Unexpected response structure:', data);
-                    throw new Error('Unexpected API response structure');
-                }
-        
-                const contentText = data.content[0].text;
-                console.log('Content text:', contentText);
-                
-                const parsedJSON = JSON.parse(contentText);
-                console.log('Parsed scenario:', parsedJSON);
-                
-                return parsedJSON;
-        
-            } catch (error) {
-                console.error('Error generating scenario:', error);
-                return {
-                    description: "Your time-traveling grandmother has arrived from 1952 to judge your potato-baking skills against her famous recipe. She's brought her antique potato-rating kit and a very strong opinion about 'how things were done in her day.'",
-                    category: "Historical",
-                    idealTemp: 425,
-                    idealTime: 60,
-                    idealSize: 2,
-                    hint: "Remember, vintage recipes often used a pat of butter under the skin!",
-                    outcomes: {
-                        perfect: "Grandma tears up with joy: 'Just like I remember! You're officially keeper of the family potato tradition!'",
-                        good: "Grandma nods approvingly: 'Almost as good as mine in '52. Almost.'",
-                        okay: "Grandma sighs: 'Well, at least you didn't use that newfangled microwave...'",
-                        burnt: "Grandma pulls out her time-travel remote: 'I'm going back to teach your mother how to cook properly.'",
-                        raw: "Grandma shakes her head: 'In my day, we knew how to preheat an oven!'"
+                    if (!data.content || !data.content[0] || !data.content[0].text) {
+                        console.error('Unexpected response structure:', data);
+                        throw new Error('Unexpected API response structure');
                     }
-                };
-            }
-        };
+            
+                    const contentText = data.content[0].text;
+                    console.log('Content text:', contentText);
+                    
+                    const parsedJSON = JSON.parse(contentText);
+                    console.log('Parsed scenario:', parsedJSON);
+                    
+                    return parsedJSON;
+            
+                } catch (error) {
+                    console.error('Error generating scenario:', error);
+                    return {
+                        description: "Your time-traveling grandmother has arrived from 1952 to judge your potato-baking skills against her famous recipe. She's brought her antique potato-rating kit and a very strong opinion about 'how things were done in her day.'",
+                        category: "Historical",
+                        idealTemp: 425,
+                        idealTime: 60,
+                        idealSize: 2,
+                        hint: "Remember, vintage recipes often used a pat of butter under the skin!",
+                        outcomes: {
+                            perfect: "Grandma tears up with joy: 'Just like I remember! You're officially keeper of the family potato tradition!'",
+                            good: "Grandma nods approvingly: 'Almost as good as mine in '52. Almost.'",
+                            okay: "Grandma sighs: 'Well, at least you didn't use that newfangled microwave...'",
+                            burnt: "Grandma pulls out her time-travel remote: 'I'm going back to teach your mother how to cook properly.'",
+                            raw: "Grandma shakes her head: 'In my day, we knew how to preheat an oven!'"
+                        }
+                    };
+                }
+            };
 
         // CAMPAIGN CHAPTERS - The SPUDNIK Saga
         const CAMPAIGN_CHAPTERS = [
