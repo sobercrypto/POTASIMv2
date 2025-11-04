@@ -732,12 +732,12 @@
                 const randomElement = randomElements[Math.floor(Math.random() * randomElements.length)];
 
                 console.log('Making API request...');
-                const response = await fetch('/api/proxy', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
+                    fetch('/api/proxy', {
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
                         model: "claude-3-sonnet-20240229",
                         max_tokens: 1024,
                         messages: [{
