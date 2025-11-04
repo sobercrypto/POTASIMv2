@@ -1,8 +1,12 @@
 const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
 const anthropicModel =
-  process.env.CLAUDE_MODEL_VERSION || process.env.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20240224';
+  process.env.CLAUDE_MODEL_VERSION ||
+  process.env.ANTHROPIC_MODEL ||
+  'claude-3-sonnet-20240229';
 const anthropicVersion =
   process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
+
+console.log(`Configured Claude model: ${anthropicModel}`);
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -37,9 +41,26 @@ export default async function handler(req, res) {
       })
     });
 
-    const data = await response.json();
+    const responseText = await response.text();
+
+    console.log('Anthropic API status:', response.status);
+
+    if (!response.ok) {
+      console.error('Anthropic API Error:', responseText);
+      return res.status(response.status).json({
+        error: responseText,
+        status: response.status,
+        statusText: response.statusText
+      });
+    }
+
+    const data = JSON.parse(responseText);
     res.status(200).json(data);
   } catch (error) {
-    res.status(500).json({ error: 'API call failed' });
+    console.error('Serverless proxy error:', error);
+    res.status(500).json({
+      error: 'API call failed',
+      details: error instanceof Error ? error.message : undefined
+    });
   }
 }
