@@ -1,36 +1,21 @@
 const express = require('express');
-const fetch = require('node-fetch');
-const cors = require('cors');
-const dotenv = require('dotenv');
 const path = require('path');
 
-dotenv.config();
-
 const app = express();
-
-// Update CORS and add security headers
-app.use(cors({
-    origin: true, // Allow all origins temporarily while testing
-    methods: ['POST', 'GET', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'x-api-key', 'anthropic-version'],
-    credentials: true
-}));
-
-app.use((req, res, next) => {
-    // Remove the X-Frame-Options header as it might conflict with CSP
-    // Set CSP to allow your domain explicitly
-    res.setHeader('Content-Security-Policy', "frame-ancestors 'self' *.squarespace.com *.potabro.com https://www.potabro.com https://potabro.com");
-    next();
-});
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
 
 const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
 const anthropicModel =
-    process.env.CLAUDE_MODEL_VERSION || process.env.ANTHROPIC_MODEL || 'claude-3-5-sonnet-20240224';
+    process.env.CLAUDE_MODEL_VERSION ||
+    process.env.ANTHROPIC_MODEL ||
+    'claude-3-sonnet-20240229';
 const anthropicVersion =
     process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
+
+console.log(`Configured Claude model: ${anthropicModel}`);
 
 // API proxy handler
 const handleProxy = async (req, res) => {
@@ -57,40 +42,44 @@ const handleProxy = async (req, res) => {
             })
         });
 
-        console.log('Anthropic API status:', response.status); // Log API response status
+        const responseText = await response.text();
+
+        console.log('Anthropic API status:', response.status);
 
         if (!response.ok) {
-            const error = await response.text();
-            console.error('Anthropic API Error:', error);
+            console.error('Anthropic API Error:', responseText);
             return res.status(response.status).json({
-                error: error,
+                error: responseText,
                 status: response.status,
                 statusText: response.statusText
             });
         }
 
-        const data = await response.json();
-        console.log('Anthropic API response:', data); // Log API response data
-        res.json(data);
+        const data = JSON.parse(responseText);
+        res.status(200).json(data);
     } catch (error) {
-        console.error('Server error:', error);
+        console.error('Server proxy error:', error);
         res.status(500).json({
-            error: 'Internal server error',
-            details: error.message,
-            stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+            error: 'API call failed',
+            details: error instanceof Error ? error.message : undefined
         });
     }
 };
 
-// Support both /proxy and /api/proxy routes
-app.post('/proxy', handleProxy);
-app.post('/api/proxy', handleProxy);
-
-
-// Serve index.html for all other routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.options('/api/proxy', (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.status(200).end();
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.post('/api/proxy', handleProxy);
+
+// Serve index.html for other routes (if desired)
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+});
+
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
