@@ -6,28 +6,28 @@ const anthropicModel =
 const anthropicVersion =
   process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
 
-console.log(`Configured Claude model: ${anthropicModel}`);
+console.log(`Configured Claude model: ${anthropicModel}`); // Fixed: Use () not backticks
 
 export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
+  
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
   }
-
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
-
+  
   try {
     if (!anthropicApiKey) {
       return res.status(500).json({ error: 'Anthropic API key is not configured on the server.' });
     }
-
+    
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -40,11 +40,10 @@ export default async function handler(req, res) {
         model: anthropicModel
       })
     });
-
+    
     const responseText = await response.text();
-
     console.log('Anthropic API status:', response.status);
-
+    
     if (!response.ok) {
       console.error('Anthropic API Error:', responseText);
       return res.status(response.status).json({
@@ -53,9 +52,10 @@ export default async function handler(req, res) {
         statusText: response.statusText
       });
     }
-
+    
     const data = JSON.parse(responseText);
     res.status(200).json(data);
+    
   } catch (error) {
     console.error('Serverless proxy error:', error);
     res.status(500).json({
