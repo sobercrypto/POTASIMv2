@@ -6,7 +6,7 @@ const anthropicModel =
 const anthropicVersion =
   process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
 
-console.log(`Configured Claude model: ${anthropicModel}`); // Fixed: Use () not backticks
+console.log(`Configured Claude model: ${anthropicModel}`);
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -64,3 +64,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
