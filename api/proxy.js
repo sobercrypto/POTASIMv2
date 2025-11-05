@@ -36,8 +36,8 @@ export default async function handler(req, res) {
         'anthropic-version': anthropicVersion
       },
       body: JSON.stringify({
-        ...req.body,
-        model: anthropicModel
+        model: anthropicModel,
+        ...req.body
       })
     });
     
@@ -64,5 +64,6 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
 
