@@ -1,4 +1,6 @@
-const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY;
+const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
+console.log('API key found:', !!anthropicApiKey);
+console.log('API key starts with:', anthropicApiKey?.substring(0, 15));
 const anthropicModel =
   process.env.CLAUDE_MODEL_VERSION ||
   process.env.ANTHROPIC_MODEL ||
@@ -64,6 +66,7 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
 
 
