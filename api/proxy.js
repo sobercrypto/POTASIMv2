@@ -2,7 +2,7 @@ const anthropicApiKey = process.env.CLAUDE_API_KEY || process.env.ANTHROPIC_API_
 const anthropicModel =
   process.env.CLAUDE_MODEL_VERSION ||
   process.env.ANTHROPIC_MODEL ||
-  'claude-3-sonnet-20240229';
+  'claude-3-5-sonnet-20241022';
 const anthropicVersion =
   process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
 
@@ -64,4 +64,5 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
