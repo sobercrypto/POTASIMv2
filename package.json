@@ -1,8 +1,7 @@
 {
-  "name": "glitch-hello-node",
+  "name": "potato-game",
   "version": "0.1.0",
-  "description": "A simple Node app built on fastify, instantly up and running. Built to be remixed on Glitch.com.",
-  "main": "server.js",
+  "description": "Potato baking game with Claude AI",
   "scripts": {
     "start": "node server.js"
   },
@@ -15,12 +14,5 @@
   "engines": {
     "node": "22.x"
   },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/glitch-hello-node"
-  },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch"
-  ]
+  "license": "MIT"
 }
