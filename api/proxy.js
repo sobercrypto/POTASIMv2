@@ -1,10 +1,7 @@
 const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
 console.log('API key found:', !!anthropicApiKey);
 console.log('API key starts with:', anthropicApiKey?.substring(0, 15));
-const anthropicModel =
-  process.env.CLAUDE_MODEL_VERSION ||
-  process.env.ANTHROPIC_MODEL ||
-  'claude-3-5-sonnet-20241022';
+const anthropicModel = "claude-sonnet-4-20250514";
 const anthropicVersion =
   process.env.CLAUDE_API_VERSION || process.env.ANTHROPIC_VERSION || '2023-06-01';
 
@@ -66,6 +63,7 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
 
 
