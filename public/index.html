@@ -780,7 +780,15 @@
                     const contentText = data.content[0].text;
                     console.log('Content text:', contentText);
                     
-                    const parsedJSON = JSON.parse(contentText);
+                    // Remove markdown code blocks if present
+                    let cleanedText = contentText.trim();
+                    if (cleanedText.startsWith('```json')) {
+                        cleanedText = cleanedText.replace(/^```json\s*/, '').replace(/```\s*$/, '');
+                    } else if (cleanedText.startsWith('```')) {
+                        cleanedText = cleanedText.replace(/^```\s*/, '').replace(/```\s*$/, '');
+                    }
+                    
+                    const parsedJSON = JSON.parse(cleanedText.trim());
                     console.log('Parsed scenario:', parsedJSON);
                     
                     return parsedJSON;
